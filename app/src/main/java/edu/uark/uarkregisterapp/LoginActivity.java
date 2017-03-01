@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState); // Not sure what this does
 
 
-        setContentView(R.layout.activity_login_landing);    // Loads the XML (UI) file
+        setContentView(R.layout.activity_login);    // Loads the XML (UI) file
     }
 
     public void loginButtonOnClick(View view) {

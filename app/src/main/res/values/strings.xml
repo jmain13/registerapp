@@ -20,4 +20,13 @@
     <string name="validation_product_lookup_code">Product lookup code may not be empty.</string>
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_product">intent_extra_product</string>
+    <string name="text_welcome_message">Welcome! Please log in.</string>
+    <string name="text_edit_employee_id">Employee ID</string>
+    <string name="text_edit_password">Password</string>
+    <string name="button_log_in">Log In</string>
+    <string name="text_view_create_employee_welcome">Please create a profile for your first user.</string>
+    <string name="button_create_user_profile">Create user profile</string>
+    <string name="text_edit_create_employee_first_name">First name</string>
+    <string name="text_edit_create_employee_last_name">Last name</string>
+    <string name="text_edit_create_employee_password">Password</string>
 </resources>
