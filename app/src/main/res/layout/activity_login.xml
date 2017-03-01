@@ -18,33 +18,33 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="number"
         android:ems="10"
-        android:id="@+id/text_edit_password"
-        android:hint="@string/text_edit_password"
-        android:layout_alignBottom="@+id/button_create_user_profile"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="51dp"
-        android:inputType="textPassword" />
+        android:id="@+id/text_edit_create_employee_last_name"
+        android:hint="@string/text_edit_employee_id"
+        android:layout_below="@+id/text_view_create_employee_welcome"
+        android:layout_alignLeft="@+id/text_edit_password"
+        android:layout_alignStart="@+id/text_edit_password"
+        android:layout_marginTop="49dp" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
         android:ems="10"
-        android:layout_marginBottom="14dp"
-        android:id="@+id/text_edit_create_employee_last_name"
-        android:hint="@string/text_edit_employee_id"
-        android:layout_above="@+id/text_edit_password"
-        android:layout_alignLeft="@+id/text_edit_password"
-        android:layout_alignStart="@+id/text_edit_password" />
+        android:id="@+id/text_edit_password"
+        android:hint="@string/text_edit_password"
+        android:inputType="textPassword"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/text_edit_create_employee_last_name"
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="@string/button_log_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_create_user_profile"
-        android:layout_below="@+id/text_view_create_employee_welcome"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp"
-        android:onClick="loginButtonOnClick (LoginLandingActivity)" />
+        android:onClick="loginButtonOnClick (LoginLandingActivity)"
+        android:layout_marginTop="66dp"
+        android:layout_below="@+id/text_edit_create_employee_last_name"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

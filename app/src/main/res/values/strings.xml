@@ -29,4 +29,10 @@
     <string name="text_edit_create_employee_first_name">First name</string>
     <string name="text_edit_create_employee_last_name">Last name</string>
     <string name="text_edit_create_employee_password">Password</string>
+    <string name="text_view_home_screen_welcome_line1">Welcome user!</string>
+    <string name="text_view_home_screen_welcome_line2">What would you like to do next?</string>
+    <string name="button_home_screen_start_transaction">Start Transaction</string>
+    <string name="button_home_screen_create_employee">Create Employee</string>
+    <string name="button_home_screen_sales_report_product">View Sales Report: Product</string>
+    <string name="button_home_screen_sales_report_cashier">View Sales Report: Cashier</string>
 </resources>

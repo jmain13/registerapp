@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:text="@string/button_home_screen_start_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="104dp"
+        android:id="@+id/button_home_screen_start_transaction" />
+
+    <Button
+        android:text="@string/button_home_screen_sales_report_cashier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_home_screen_sales_report_product"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="19dp"
+        android:id="@+id/button_home_screen_sales_report_cashier" />
+
+    <Button
+        android:text="@string/button_home_screen_create_employee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:id="@+id/button_home_screen_create_employee"
+        android:layout_below="@+id/button_home_screen_start_transaction"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="@string/text_view_home_screen_welcome_line2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:id="@+id/text_view_home_screen_welcome_line2"
+        android:textSize="18sp"
+        android:layout_below="@+id/text_view_home_screen_welcome_line1"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/button_home_screen_sales_report_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_home_screen_sales_report_product"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/button_home_screen_sales_report_cashier"
+        android:layout_alignStart="@+id/button_home_screen_sales_report_cashier" />
+
+    <TextView
+        android:text="@string/text_view_home_screen_welcome_line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="23dp"
+        android:id="@+id/text_view_home_screen_welcome_line1"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
