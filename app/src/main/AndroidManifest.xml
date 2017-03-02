@@ -19,12 +19,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LandingActivity"
-            android:parentActivityName=".LoginActivity"
+            android:name=".HomeScreenActivity"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.uark.uarkregisterapp.LoginActivity"/>
         </activity>
         <activity
             android:name=".ProductsListingActivity"
