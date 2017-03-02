@@ -40,4 +40,7 @@
     <string name="button_home_screen_sales_report_product">View Sales Report: Product</string>
     <string name="button_home_screen_sales_report_cashier">View Sales Report: Cashier</string>
     <string name="button_log_out">Log Out</string>
+
+    <string name="alert_title_functionality_not_available">Functionality Not Available</string>
+    <string name="alert_functionality_not_available">This functionality has not yet been implemented.</string>
 </resources>
