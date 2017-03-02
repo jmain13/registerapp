@@ -12,7 +12,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         // TO DO - Query the server here to determine if employees exist in the database
-        // TO DO - If no employees exist in database, open create employee screen
+        // If no employees exist in database, open create employee screen
+        //this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
 
         // Open login screen
         setContentView(R.layout.activity_login);
