@@ -21,6 +21,7 @@
 
     <Button
         android:id="@+id/button_home_screen_start_transaction"
+        android:onClick="startTransactionButtonOnClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -30,6 +31,7 @@
 
     <Button
         android:id="@+id/button_home_screen_create_employee"
+        android:onClick="createEmployeeButtonOnClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -41,17 +43,10 @@
         android:text="@string/button_home_screen_sales_report_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:id="@+id/button_home_screen_sales_report_product"
+        android:onClick="viewSalesReportProductButtonOnClick"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:text="@string/button_home_screen_sales_report_cashier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:id="@+id/button_home_screen_sales_report_cashier"
-        android:layout_below="@+id/button_home_screen_sales_report_product"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -62,6 +57,26 @@
         android:id="@+id/text_view_home_screen_welcome_line2"
         android:textSize="24sp"
         android:layout_below="@+id/text_view_home_screen_welcome_line1"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/button_home_screen_sales_report_cashier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/button_home_screen_sales_report_cashier"
+        android:onClick="viewSalesReportCashierButtonOnClick"
+        android:layout_below="@+id/button_home_screen_sales_report_product"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/button_log_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/button_log_out"
+        android:onClick="logoutButtonOnClick"
+        android:layout_below="@+id/button_home_screen_sales_report_cashier"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

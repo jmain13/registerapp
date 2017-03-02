@@ -14,20 +14,30 @@ public class HomeScreenActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_screen);
 	}
-/*
-	public void displayAllProductsButtonOnClick(View view) {
-		this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
+
+	// Start Transaction Button
+	public void startTransactionButtonOnClick(View view) {
+		// Popup message
 	}
 
-	public void createProductButtonOnClick(View view) {
-		Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
-
-		intent.putExtra(
-			getString(R.string.intent_extra_product),
-			new ProductTransition()
-		);
-
-		this.startActivity(intent);
+	// Create Employee Button
+	public void createEmployeeButtonOnClick(View view) {
+		// Popup message
 	}
-	*/
+
+	// Sales Report: Product Button
+	public void viewSalesReportProductButtonOnClick(View view) {
+		// Popup message
+	}
+
+	// Sales Report: Cashier Button
+	public void viewSalesReportCashierButtonOnClick(View view) {
+		// Popup message
+	}
+
+	// Log Out Button
+	public void logoutButtonOnClick(View view) {
+		this.startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+	}
+
 }
