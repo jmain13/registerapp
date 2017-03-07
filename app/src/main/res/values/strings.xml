@@ -41,6 +41,12 @@
     <string name="button_home_screen_sales_report_cashier">View Sales Report: Cashier</string>
     <string name="button_log_out">Log Out</string>
 
+    <string name="alert_dialog_create_employee_success">The user profile was successfully created.</string>
+    <string name="alert_dialog_create_employee_failure">An issue was encountered when creating the user profile.</string>
+    <string name="validation_employee_first_name">First name may not be empty.</string>
+    <string name="validation_employee_last_name">Last name may not be empty.</string>
+    <string name="validation_employee_password">Password may not be empty.</string>
+
     <string name="alert_title_functionality_not_available">Functionality Not Available</string>
     <string name="alert_functionality_not_available">This functionality has not yet been implemented.</string>
 </resources>
