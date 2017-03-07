@@ -18,6 +18,8 @@ public class CreateEmployeeActivity extends AppCompatActivity {
     public void createUserProfileButtonOnClick(View view) {
 
         // TO DO - Store user info on database
+        //open database
+        //insert the user info via?????
 
         // TO DO - Display a message on success?
 
