@@ -11,6 +11,9 @@ import android.widget.EditText;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiRequestStatus;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
@@ -23,7 +26,19 @@ public class CreateEmployeeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_employee);
+
+        this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.getFirstNameEditText().setText(this.employeeTransition.getFirstName());
+        this.getLastNameEditText().setText(this.employeeTransition.getLastName());
+        this.getPasswordEditText().setText(this.employeeTransition.getPassword());
+    }
+
 
     public void createUserProfileButtonOnClick(View view) {
         if (!this.validateInput()) {
