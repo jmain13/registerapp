@@ -24,7 +24,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 	// Create Employee Button
 	public void createEmployeeButtonOnClick(View view) {
-		this.functionalityNotAvailableDialog(view);
+		this.startActivity(new Intent(getApplicationContext(), CreateEmployeeActivity.class));
 	}
 
 	// Sales Report: Product Button

@@ -58,7 +58,7 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="number"
+        android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/text_edit_create_employee_last_name"
         android:hint="@string/text_edit_create_employee_last_name"
