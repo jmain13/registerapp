@@ -16,6 +16,8 @@ import edu.uark.uarkregisterapp.models.api.interfaces.ConvertToJsonInterface;
 import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
+// Modeled after Product.java
+
 public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<Employee> {
 	private UUID id;
 	public UUID getId() {
