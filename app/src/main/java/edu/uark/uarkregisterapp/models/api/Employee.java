@@ -11,12 +11,10 @@ import java.util.Locale;
 import java.util.UUID;
 
 import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiRequestStatus;
+import edu.uark.uarkregisterapp.models.api.enums.EmployeeClassification;
 import edu.uark.uarkregisterapp.models.api.fields.EmployeeFieldName;
 import edu.uark.uarkregisterapp.models.api.interfaces.ConvertToJsonInterface;
 import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
-import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
-
-// Modeled after Product.java
 
 public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<Employee> {
 	private UUID id;
@@ -28,28 +26,69 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
 		return this;
 	}
 
+	private String employeeId;
+	public String getEmployeeId() {
+		return this.employeeId;
+	}
+	public Employee setEmployeeId(String employeeId) {
+		this.employeeId = employeeId;
+		return this;
+	}
+
 	private String firstName;
-	public String getFirstName() { return this.firstName; }
+	public String getFirstName() {
+		return this.firstName;
+	}
 	public Employee setFirstName(String firstName) {
 		this.firstName = firstName;
 		return this;
 	}
 
 	private String lastName;
-	public String getLastName() { return this.lastName; }
+	public String getLastName() {
+		return this.lastName;
+	}
 	public Employee setLastName(String lastName) {
 		this.lastName = lastName;
 		return this;
 	}
 
 	private String password;
-	public String getPassword() { return this.password; }
+	public String getPassword() {
+		return this.password;
+	}
 	public Employee setPassword(String password) {
 		this.password = password;
 		return this;
 	}
 
-	// Is this needed for employee?
+	private boolean active;
+	public boolean getActive() {
+		return this.active;
+	}
+	public Employee setActive(boolean active) {
+		this.active = active;
+		return this;
+	}
+
+	private EmployeeClassification classification;
+	public EmployeeClassification getClassification() {
+		return this.classification;
+	}
+	public Employee setClassification(EmployeeClassification classification) {
+		this.classification = classification;
+		return this;
+	}
+
+	private UUID managerId;
+	public UUID getManagerId() {
+		return this.managerId;
+	}
+	public Employee setManagerId(UUID managerId) {
+		this.managerId = managerId;
+		return this;
+	}
+
 	private Date createdOn;
 	public Date getCreatedOn() {
 		return this.createdOn;
@@ -90,9 +129,13 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
 			this.id = UUID.fromString(value);
 		}
 
+		this.employeeId = rawJsonObject.optString(EmployeeFieldName.EMPLOYEE_ID.getFieldName());
 		this.firstName = rawJsonObject.optString(EmployeeFieldName.FIRST_NAME.getFieldName());
-		this.lastName = rawJsonObject.optString(EmployeeFieldName.LAST_NAME.getFieldName());
-		this.password = rawJsonObject.optString(EmployeeFieldName.PASSWORD.getFieldName());
+		this.lastName = rawJsonObject.optString(EmployeeFieldName.FIRST_NAME.getFieldName());
+		this.active = rawJsonObject.optBoolean(EmployeeFieldName.ACTIVE.getFieldName());
+		this.classification = EmployeeClassification.mapName(
+				rawJsonObject.optString(EmployeeFieldName.CLASSIFICATION.getFieldName())
+		);
 
 		value = rawJsonObject.optString(EmployeeFieldName.CREATED_ON.getFieldName());
 		if (!StringUtils.isBlank(value)) {
@@ -119,9 +162,12 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
 
 		try {
 			jsonObject.put(EmployeeFieldName.ID.getFieldName(), this.id.toString());
+			jsonObject.put(EmployeeFieldName.EMPLOYEE_ID.getFieldName(), this.employeeId);
 			jsonObject.put(EmployeeFieldName.FIRST_NAME.getFieldName(), this.firstName);
 			jsonObject.put(EmployeeFieldName.LAST_NAME.getFieldName(), this.lastName);
 			jsonObject.put(EmployeeFieldName.PASSWORD.getFieldName(), this.password);
+			jsonObject.put(EmployeeFieldName.ACTIVE.getFieldName(), this.active);
+			jsonObject.put(EmployeeFieldName.CLASSIFICATION.getFieldName(), this.classification.name());
 			jsonObject.put(EmployeeFieldName.CREATED_ON.getFieldName(), (new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS", Locale.US)).format(this.createdOn));
 			jsonObject.put(EmployeeFieldName.API_REQUEST_MESSAGE.getFieldName(), this.apiRequestMessage);
 			jsonObject.put(EmployeeFieldName.API_REQUEST_STATUS.getFieldName(), this.apiRequestStatus.name());
@@ -133,22 +179,16 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
 	}
 
 	public Employee() {
-		this.firstName = "";
-		this.lastName = "";
-		this.password = "";
+		this.active = false;
 		this.id = new UUID(0, 0);
 		this.createdOn = new Date();
+		this.managerId = new UUID(0, 0);
+		this.lastName = StringUtils.EMPTY;
+		this.password = StringUtils.EMPTY;
+		this.firstName = StringUtils.EMPTY;
+		this.employeeId = StringUtils.EMPTY;
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = EmployeeApiRequestStatus.OK;
-	}
-
-	public Employee(EmployeeTransition employeeTransition) {
-		this.id = employeeTransition.getId();
-		this.firstName = employeeTransition.getFirstName();
-		this.lastName = employeeTransition.getLastName();
-		this.password = employeeTransition.getPassword();
-		this.createdOn = employeeTransition.getCreatedOn();
-		this.apiRequestMessage = StringUtils.EMPTY;
-		this.apiRequestStatus = EmployeeApiRequestStatus.OK;
+		this.classification = EmployeeClassification.NOT_DEFINED;
 	}
 }

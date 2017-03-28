@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
+import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 public class HomeScreenActivity extends AppCompatActivity {
@@ -15,6 +17,14 @@ public class HomeScreenActivity extends AppCompatActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home_screen);
+
+		this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		this.getHomeScreenWelcomeLine1TextView().setText("Welcome " + this.employeeTransition.getFirstName() + " (" + this.employeeTransition.getEmployeeId() + ")!");
 	}
 
 	// Start Transaction Button
@@ -42,6 +52,10 @@ public class HomeScreenActivity extends AppCompatActivity {
 		this.startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 	}
 
+	private TextView getHomeScreenWelcomeLine1TextView() {
+		return (TextView)this.findViewById(R.id.text_view_home_screen_welcome_line1);
+	}
+
 	// Functionality Not Available Dialog
 	public void functionalityNotAvailableDialog(View view) {
 		new AlertDialog.Builder(this).
@@ -58,4 +72,6 @@ public class HomeScreenActivity extends AppCompatActivity {
 				create().
 				show();
 	}
+
+	private EmployeeTransition employeeTransition;
 }
