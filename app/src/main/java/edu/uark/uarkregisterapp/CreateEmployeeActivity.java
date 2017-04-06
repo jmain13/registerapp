@@ -4,60 +4,66 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import edu.uark.uarkregisterapp.models.api.Employee;
 import edu.uark.uarkregisterapp.models.api.enums.EmployeeApiRequestStatus;
+import edu.uark.uarkregisterapp.models.api.enums.EmployeeClassification;
 import edu.uark.uarkregisterapp.models.api.services.EmployeeService;
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 
-// Modeled from ProductViewActivity.java
-
 public class CreateEmployeeActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_employee);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
-        this.employeeTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_employee));
+        ActionBar actionBar = this.getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:  // Respond to the action bar's Up/Home button
+                this.finish();
+                return true;
+        }
 
-        this.getFirstNameEditText().setText(this.employeeTransition.getFirstName());
-        this.getLastNameEditText().setText(this.employeeTransition.getLastName());
-        this.getPasswordEditText().setText(this.employeeTransition.getPassword());
+        return super.onOptionsItemSelected(item);
     }
-
 
     public void createUserProfileButtonOnClick(View view) {
         if (!this.validateInput()) {
             return;
         }
 
-        this.savingEmployeeAlert = new AlertDialog.Builder(this).
-                setMessage(R.string.alert_dialog_product_save).
-                create();
-
-        (new CreateEmployeeActivity.SaveActivityTask(
-                this,
-                this.getFirstNameEditText().getText().toString(),
-                this.getLastNameEditText().getText().toString(),
-                this.getPasswordEditText().getText().toString()
-        )).execute();
-
-        // Open home screen
-        this.startActivity(new Intent(getApplicationContext(), HomeScreenActivity.class));
+        //TODO: Hash the password.
+        (new CreateEmployeeTask()).execute(
+                (new Employee()).
+                        setActive(true).
+                        setFirstName(this.getFirstNameEditText().getText().toString()).
+                        setLastName(this.getLastNameEditText().getText().toString()).
+                        setPassword(this.getPasswordEditText().getText().toString()).
+                        setClassification(EmployeeClassification.GENERAL_MANAGER)
+        );
     }
 
     private EditText getFirstNameEditText() {
@@ -72,101 +78,93 @@ public class CreateEmployeeActivity extends AppCompatActivity {
         return (EditText) this.findViewById(R.id.text_edit_create_employee_password);
     }
 
-    private class SaveActivityTask extends AsyncTask<Void, Void, Boolean> {
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            Employee employee = (new EmployeeService()).putEmployee(
-                    (new Employee()).
-                            setId(employeeTransition.getId()).
-                            setFirstName(this.firstName).
-                            setLastName(this.lastName).
-                            setPassword(this.password)
-            );
-
-            if (employee.getApiRequestStatus() == EmployeeApiRequestStatus.OK) {
-                employeeTransition.setFirstName(this.firstName);
-                employeeTransition.setLastName(this.lastName);
-                employeeTransition.setPassword(this.password);
-            }
-
-            return (employee.getApiRequestStatus() == EmployeeApiRequestStatus.OK);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean successfulSave) {
-            String message;
-
-            savingEmployeeAlert.dismiss();
-
-            if (successfulSave) {
-                message = getString(R.string.alert_dialog_product_save_success);
-            } else {
-                message = getString(R.string.alert_dialog_product_save_failure);
-            }
-
-            new AlertDialog.Builder(this.activity).
-                    setMessage(message).
-                    setPositiveButton(
-                            R.string.button_dismiss,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            }
-                    ).
-                    create().
-                    show();
-        }
-
-        private String firstName;
-        private String lastName;
-        private String password;
-        private CreateEmployeeActivity activity;
-
-        private SaveActivityTask(CreateEmployeeActivity activity, String firstName, String lastName, String password) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.password = password;
-        }
-    }
+    /*// Password confirm - this was in the spike solution and might be nice to add
+    private EditText getPasswordConfirmEditText() {
+        return (EditText) this.findViewById(R.id.edit_text_employee_create_password_confirm);
+    }*/
 
     private boolean validateInput() {
-        boolean inputIsValid = true;
-        String validationMessage = StringUtils.EMPTY;
+        boolean validInput = true;
 
         if (StringUtils.isBlank(this.getFirstNameEditText().getText().toString())) {
-            validationMessage = this.getString(R.string.validation_employee_first_name);
-            inputIsValid = false;
+            this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_first_name);
+            this.getFirstNameEditText().requestFocus();
+            validInput = false;
         }
-
-        if (StringUtils.isBlank(this.getLastNameEditText().getText().toString())) {
-            validationMessage = this.getString(R.string.validation_employee_last_name);
-            inputIsValid = false;
+        if (validInput && StringUtils.isBlank(this.getLastNameEditText().getText().toString())) {
+            this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_last_name);
+            this.getLastNameEditText().requestFocus();
+            validInput = false;
         }
-
-        if (StringUtils.isBlank(this.getPasswordEditText().getText().toString())) {
-            validationMessage = this.getString(R.string.validation_employee_password);
-            inputIsValid = false;
+        if (validInput && StringUtils.isBlank(this.getPasswordEditText().getText().toString())) {
+            this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_password);
+            this.getLastNameEditText().requestFocus();
+            validInput = false;
         }
+        /*// For password confirm input validation
+        if (validInput && !this.getPasswordEditText().getText().toString().equals(this.getPasswordConfirmEditText().getText().toString())) {
+            this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_password_invalid);
+            this.getLastNameEditText().requestFocus();
+            validInput = false;
+        }*/
 
-        if (!inputIsValid) {
-            new AlertDialog.Builder(this).
-                    setMessage(validationMessage).
-                    setPositiveButton(
-                            R.string.button_dismiss,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            }
-                    ).
-                    create().
-                    show();
-        }
-
-        return inputIsValid;
+        return validInput;
     }
 
-    private AlertDialog savingEmployeeAlert;
-    private EmployeeTransition employeeTransition;
+    private void displayValidationAlert(int stringId) {
+        new AlertDialog.Builder(this).
+                setMessage(stringId).
+                create().
+                show();
+    }
+
+    private class CreateEmployeeTask extends AsyncTask<Employee, Void, Employee> {
+        @Override
+        protected void onPreExecute() {
+            this.createEmployeeAlert = new AlertDialog.Builder(CreateEmployeeActivity.this).
+                    setMessage(R.string.alert_dialog_employee_create).
+                    create();
+            this.createEmployeeAlert.show();
+        }
+
+        @Override
+        protected Employee doInBackground(Employee... employees) {
+            if (employees.length > 0) {
+                try {
+                    MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+                    messageDigest.update(employees[0].getPassword().getBytes());
+                    employees[0].setPassword(new String(messageDigest.digest()));
+                } catch (NoSuchAlgorithmException e) { }
+
+                return (new EmployeeService()).putEmployee(employees[0]);
+            } else {
+                return (new Employee()).
+                        setApiRequestStatus(EmployeeApiRequestStatus.INVALID_INPUT);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Employee employee) {
+            this.createEmployeeAlert.dismiss();
+
+            if (employee.getApiRequestStatus() != EmployeeApiRequestStatus.OK) {
+                new AlertDialog.Builder(CreateEmployeeActivity.this).
+                        setMessage(R.string.alert_dialog_employee_create_failed).
+                        create().
+                        show();
+                return;
+            }
+
+            Intent intent = new Intent(getApplicationContext(), HomeScreenActivity.class);
+
+            intent.putExtra(
+                    getString(R.string.intent_extra_employee),
+                    new EmployeeTransition(employee)
+            );
+
+            startActivity(intent);
+        }
+
+        private AlertDialog createEmployeeAlert;
+    }
 }

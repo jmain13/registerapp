@@ -33,6 +33,7 @@
     <string name="alert_dialog_signing_in">Signing in...</string>
     <string name="alert_dialog_employee_create">Creating employee...</string>
     <string name="alert_dialog_employee_sign_in_failed">Employee sign in failed. Please try again.</string>
+    <string name="alert_dialog_employee_create_failed">The employee could not be created. Please try again.</string>
 
     <string name="title_activity_create_employee">Create Employee</string>
     <string name="text_view_create_employee_welcome">Please create a profile for your first user.</string>
@@ -51,9 +52,10 @@
 
     <string name="alert_dialog_create_employee_success">The user profile was successfully created.</string>
     <string name="alert_dialog_create_employee_failure">An issue was encountered when creating the user profile.</string>
-    <string name="validation_employee_first_name">First name may not be empty.</string>
-    <string name="validation_employee_last_name">Last name may not be empty.</string>
-    <string name="validation_employee_password">Password may not be empty.</string>
+    <string name="alert_dialog_employee_create_validation_first_name">First name may not be empty.</string>
+    <string name="alert_dialog_employee_create_validation_last_name">Last name may not be empty.</string>
+    <string name="alert_dialog_employee_create_validation_password">Password may not be empty.</string>
+    <string name="alert_dialog_employee_create_validation_password_invalid">Passwords do not match.</string>
     <string name="intent_extra_employee">intent_extra_employee</string>
 
     <string name="alert_title_functionality_not_available">Functionality Not Available</string>
