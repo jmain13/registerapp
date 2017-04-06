@@ -29,7 +29,7 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 	// Start Transaction Button
 	public void startTransactionButtonOnClick(View view) {
-		this.functionalityNotAvailableDialog(view);
+		this.displayFunctionalityNotAvailableAlert(view);
 	}
 
 	// Create Employee Button
@@ -39,12 +39,12 @@ public class HomeScreenActivity extends AppCompatActivity {
 
 	// Sales Report: Product Button
 	public void viewSalesReportProductButtonOnClick(View view) {
-		this.functionalityNotAvailableDialog(view);
+		this.displayFunctionalityNotAvailableAlert(view);
 	}
 
 	// Sales Report: Cashier Button
 	public void viewSalesReportCashierButtonOnClick(View view) {
-		this.functionalityNotAvailableDialog(view);
+		this.displayFunctionalityNotAvailableAlert(view);
 	}
 
 	// Log Out Button
@@ -57,10 +57,9 @@ public class HomeScreenActivity extends AppCompatActivity {
 	}
 
 	// Functionality Not Available Dialog
-	public void functionalityNotAvailableDialog(View view) {
+	public void displayFunctionalityNotAvailableAlert(View view) {
 		new AlertDialog.Builder(this).
-				setTitle(R.string.alert_title_functionality_not_available).
-				setMessage(R.string.alert_functionality_not_available).
+				setMessage(R.string.alert_dialog_functionality_not_available).
 				setPositiveButton(
 						R.string.button_dismiss,
 						new DialogInterface.OnClickListener() {
