@@ -17,26 +17,18 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:text="@string/text_view_home_screen_welcome_line1"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/text_view_home_screen_welcome_line2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:textSize="20sp"
-        android:text="@string/text_view_home_screen_welcome_line2"
-        android:layout_below="@+id/text_view_home_screen_welcome_line1"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/button_home_screen_start_transaction"
         android:onClick="startTransactionButtonOnClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="30dp"
         android:text="@string/button_home_screen_start_transaction"
-        android:layout_below="@+id/text_view_home_screen_welcome_line2"
+        android:layout_below="@+id/text_view_home_screen_welcome_line1"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -44,7 +36,7 @@
         android:onClick="createEmployeeButtonOnClick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:text="@string/button_home_screen_create_employee"
         android:layout_below="@+id/button_home_screen_start_transaction"
         android:layout_centerHorizontal="true" />
@@ -53,7 +45,7 @@
         android:text="@string/button_home_screen_sales_report_product"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:id="@+id/button_home_screen_sales_report_product"
         android:onClick="viewSalesReportProductButtonOnClick"
         android:layout_below="@+id/button_home_screen_create_employee"
@@ -63,7 +55,7 @@
         android:text="@string/button_home_screen_sales_report_cashier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:id="@+id/button_home_screen_sales_report_cashier"
         android:onClick="viewSalesReportCashierButtonOnClick"
         android:layout_below="@+id/button_home_screen_sales_report_product"
@@ -73,7 +65,7 @@
         android:text="@string/button_log_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:id="@+id/button_log_out"
         android:onClick="logoutButtonOnClick"
         android:layout_below="@+id/button_home_screen_sales_report_cashier"
