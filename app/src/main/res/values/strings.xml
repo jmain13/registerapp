@@ -31,8 +31,8 @@
     <string name="alert_dialog_employee_sign_in_failed">Employee sign in failed. Please try again.</string>
     <string name="alert_dialog_employee_create_failed">The employee could not be created. Please try again.</string>
     <string name="title_activity_create_employee">Create Employee</string>
-    <string name="text_view_create_employee_welcome">Please create a profile for your first user.</string>
-    <string name="button_create_user_profile">Create user profile</string>
+    <string name="text_view_create_employee_welcome">Please create a new employee profile.</string>
+    <string name="button_create_user_profile">Create profile</string>
     <string name="text_edit_create_employee_first_name">First name</string>
     <string name="text_edit_create_employee_last_name">Last name</string>
     <string name="text_edit_create_employee_password">Password</string>
