@@ -3,6 +3,7 @@
     <string name="title_activity_products_listing">Products</string>
     <string name="title_activity_product_view">ProductViewActivity</string>
     <string name="button_save">Save</string>
+    <string name="button_ok">OK</string>
     <string name="button_dismiss">Dismiss</string>
     <string name="button_all_products">Show All Products</string>
     <string name="button_create_product">Create Product</string>
@@ -26,6 +27,13 @@
     <string name="text_edit_password">Password</string>
     <string name="button_log_in">Log In</string>
 
+    <string name="alert_dialog_no_employees_exist">No employees exist, please create an employee now.</string>
+    <string name="alert_dialog_employee_id_empty">Employee ID must provided.</string>
+    <string name="alert_dialog_employee_password_empty">Password must provided.</string>
+    <string name="alert_dialog_signing_in">Signing in...</string>
+    <string name="alert_dialog_employee_create">Creating employee...</string>
+    <string name="alert_dialog_employee_sign_in_failed">Employee sign in failed. Please try again.</string>
+
     <string name="title_activity_create_employee">Create Employee</string>
     <string name="text_view_create_employee_welcome">Please create a profile for your first user.</string>
     <string name="button_create_user_profile">Create user profile</string>
@@ -46,6 +54,7 @@
     <string name="validation_employee_first_name">First name may not be empty.</string>
     <string name="validation_employee_last_name">Last name may not be empty.</string>
     <string name="validation_employee_password">Password may not be empty.</string>
+    <string name="intent_extra_employee">intent_extra_employee</string>
 
     <string name="alert_title_functionality_not_available">Functionality Not Available</string>
     <string name="alert_functionality_not_available">This functionality has not yet been implemented.</string>

@@ -5,14 +5,11 @@ import java.util.Map;
 
 import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 
-// Modeled after ProductApiMethod.java
-
 public enum EmployeeApiMethod implements PathElementInterface {
 	NONE(""),
 	EMPLOYEE("employee"),
-	BY_FIRST_NAME("byFirstName"),
-	BY_LAST_NAME("byLastName"),
-	EMPLOYEES("employees");
+	ACTIVE_COUNTS("activecounts"),
+	LOGIN("login");
 
 	@Override
 	public String getPathValue() {
