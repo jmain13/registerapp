@@ -100,12 +100,11 @@ public class CreateEmployeeActivity extends AppCompatActivity {
             this.getLastNameEditText().requestFocus();
             validInput = false;
         }
-        /*// For password confirm input validation
         if (validInput && !this.getPasswordEditText().getText().toString().equals(this.getPasswordConfirmEditText().getText().toString())) {
             this.displayValidationAlert(R.string.alert_dialog_employee_create_validation_password_invalid);
             this.getLastNameEditText().requestFocus();
             validInput = false;
-        }*/
+        }
 
         return validInput;
     }

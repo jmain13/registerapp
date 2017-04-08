@@ -15,7 +15,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 public class EmployeeService extends BaseRemoteService {
 	public Employee getEmployee(UUID employeeId) {
 		JSONObject rawJsonObject = this.requestSingle(
-				(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE }), employeeId
+			(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE }), employeeId
 		);
 
 		if (rawJsonObject != null) {
@@ -27,7 +27,7 @@ public class EmployeeService extends BaseRemoteService {
 
 	public ActiveEmployeeCounts activeEmployeeCounts() {
 		JSONObject rawJsonObject = this.requestSingle(
-				(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE, EmployeeApiMethod.ACTIVE_COUNTS })
+			(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE, EmployeeApiMethod.ACTIVE_COUNTS })
 		);
 
 		if (rawJsonObject != null) {
@@ -39,8 +39,8 @@ public class EmployeeService extends BaseRemoteService {
 
 	public Employee logIn(EmployeeLogin employeeLogin) {
 		JSONObject rawJsonObject = this.putSingle(
-				(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE, EmployeeApiMethod.LOGIN }),
-				employeeLogin.convertToJson()
+			(new PathElementInterface[] { EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE, EmployeeApiMethod.LOGIN }),
+			employeeLogin.convertToJson()
 		);
 
 		if (rawJsonObject != null) {
@@ -52,7 +52,7 @@ public class EmployeeService extends BaseRemoteService {
 
 	public Employee putEmployee(Employee employee) {
 		JSONObject rawJsonObject = this.putSingle(
-				(new PathElementInterface[]{ EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE }), employee.convertToJson()
+			(new PathElementInterface[]{ EmployeeApiMethod.EMPLOYEE, ApiLevel.ONE }), employee.convertToJson()
 		);
 
 		if (rawJsonObject != null) {

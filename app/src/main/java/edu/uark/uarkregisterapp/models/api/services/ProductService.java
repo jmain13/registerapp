@@ -64,5 +64,4 @@ public class ProductService extends BaseRemoteService {
 			return new Product().setApiRequestStatus(ProductApiRequestStatus.UNKNOWN_ERROR);
 		}
 	}
-
 }

@@ -5,14 +5,13 @@ import android.util.SparseArray;
 import java.util.HashMap;
 import java.util.Map;
 
-// Modeled after ProductApiRequestStatus.java
-
 public enum EmployeeApiRequestStatus {
 	OK(0),
 	INVALID_INPUT(1),
 	UNKNOWN_ERROR(2),
 	NOT_FOUND(3),
-	LOOKUP_CODE_ALREADY_EXISTS(4);
+	EMPLOYEE_ID_ALREADY_EXISTS(4),
+	INVALID_EMPLOYEE_ID_CHANGE(5);
 
 	public int getValue() {
 		return value;
@@ -47,5 +46,7 @@ public enum EmployeeApiRequestStatus {
 	private static Map<String, EmployeeApiRequestStatus> nameMap = null;
 	private static SparseArray<EmployeeApiRequestStatus> valueMap = null;
 
-	private EmployeeApiRequestStatus(int value) { this.value = value; }
+	private EmployeeApiRequestStatus(int value) {
+		this.value = value;
+	}
 }

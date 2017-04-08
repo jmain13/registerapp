@@ -134,7 +134,7 @@ public class Employee implements ConvertToJsonInterface, LoadFromJsonInterface<E
 		this.lastName = rawJsonObject.optString(EmployeeFieldName.FIRST_NAME.getFieldName());
 		this.active = rawJsonObject.optBoolean(EmployeeFieldName.ACTIVE.getFieldName());
 		this.classification = EmployeeClassification.mapName(
-				rawJsonObject.optString(EmployeeFieldName.CLASSIFICATION.getFieldName())
+			rawJsonObject.optString(EmployeeFieldName.CLASSIFICATION.getFieldName())
 		);
 
 		value = rawJsonObject.optString(EmployeeFieldName.CREATED_ON.getFieldName());

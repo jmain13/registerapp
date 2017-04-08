@@ -112,7 +112,7 @@ public class EmployeeTransition implements Parcelable {
 		return 0;
 	}
 
-	public static final Parcelable.Creator<EmployeeTransition> CREATOR = new Parcelable.Creator<EmployeeTransition>() {
+	public static final Creator<EmployeeTransition> CREATOR = new Creator<EmployeeTransition>() {
 		public EmployeeTransition createFromParcel(Parcel employeeTransitionParcel) {
 			return new EmployeeTransition(employeeTransitionParcel);
 		}

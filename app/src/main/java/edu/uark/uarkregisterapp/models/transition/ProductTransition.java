@@ -62,7 +62,7 @@ public class ProductTransition implements Parcelable {
 		return 0;
 	}
 
-	public static final Parcelable.Creator<ProductTransition> CREATOR = new Parcelable.Creator<ProductTransition>() {
+	public static final Creator<ProductTransition> CREATOR = new Creator<ProductTransition>() {
 		public ProductTransition createFromParcel(Parcel productTransitionParcel) {
 			return new ProductTransition(productTransitionParcel);
 		}
