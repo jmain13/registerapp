@@ -78,10 +78,9 @@ public class CreateEmployeeActivity extends AppCompatActivity {
         return (EditText) this.findViewById(R.id.text_edit_create_employee_password);
     }
 
-    /*// Password confirm - this was in the spike solution and might be nice to add
     private EditText getPasswordConfirmEditText() {
-        return (EditText) this.findViewById(R.id.edit_text_employee_create_password_confirm);
-    }*/
+        return (EditText) this.findViewById(R.id.text_edit_create_employee_password_confirm);
+    }
 
     private boolean validateInput() {
         boolean validInput = true;

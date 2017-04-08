@@ -15,7 +15,7 @@
         android:text="@string/text_view_create_employee_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="40dp"
         android:id="@+id/text_view_create_employee_welcome"
         android:textSize="18sp"
         android:textAlignment="center"
@@ -39,9 +39,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/button_create_user_profile"
         android:onClick="createUserProfileButtonOnClick"
-        android:layout_marginTop="18dp"
-        android:layout_below="@+id/text_edit_create_employee_password"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/text_edit_create_employee_password_confirm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -53,7 +53,19 @@
         android:layout_below="@+id/text_edit_create_employee_last_name"
         android:layout_alignLeft="@+id/text_edit_create_employee_last_name"
         android:layout_alignStart="@+id/text_edit_create_employee_last_name"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="14dp" />
+
+    <EditText
+        android:id="@+id/text_edit_create_employee_password_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/text_edit_create_employee_password"
+        android:layout_alignStart="@+id/text_edit_create_employee_password"
+        android:layout_below="@+id/text_edit_create_employee_password"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:hint="@string/text_edit_create_employee_password_confirm"
+        android:inputType="textPassword" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -65,5 +77,5 @@
         android:layout_below="@+id/text_edit_create_employee_first_name"
         android:layout_alignLeft="@+id/text_edit_create_employee_first_name"
         android:layout_alignStart="@+id/text_edit_create_employee_first_name"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="14dp" />
 </RelativeLayout>
