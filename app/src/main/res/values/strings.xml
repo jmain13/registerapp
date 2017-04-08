@@ -12,7 +12,7 @@
     <string name="button_product_sales_report">Report: Product</string>
     <string name="button_cashier_sales_report">Report: Cashier</string>
     <string name="button_log_out">Log Out</string>
-    <string name="text_view_landing_welcome">UARK Register App</string>
+    <string name="text_view_landing_welcome">Hello!</string>
     <string name="text_view_please_sign_in">Please Sign In</string>
     <string name="text_view_products_lookup_code">LookupCode</string>
     <string name="text_view_login_employee_id">Employee ID</string>
@@ -46,6 +46,6 @@
     <string name="validation_product_count">Product count must be a number and may not be negative.</string>
     <string name="intent_extra_employee">intent_extra_employee</string>
     <string name="intent_extra_product">intent_extra_product</string>
-    <string name="title_activity_create_employee">CreateEmployeeActivity</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_create_employee">Create Employee</string>
+    <string name="title_activity_main">UARK Register App</string>
 </resources>
