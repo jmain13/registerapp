@@ -41,6 +41,11 @@
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".StartTransactionActivity"
+            android:label="@string/title_activity_start_transaction"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
