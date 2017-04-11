@@ -48,7 +48,7 @@
 
     <TextView
         android:id="@+id/text_view_product_created_on"
-        android:text="@string/text_view_label_products_created_on"
+        android:text="Price:"
         android:layout_width="wrap_content"
         android:layout_below="@+id/edit_text_product_count"
         android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
 
     <EditText
         android:id="@+id/edit_text_product_created_on"
-        android:hint="@string/text_view_products_created_on"
+        android:hint="$9.99"
         android:inputType="date"
         android:enabled="false"
         android:layout_below="@+id/text_view_product_created_on"
@@ -64,16 +64,27 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"/>
 
-    <ImageButton
-        android:id="@+id/button_activity_edit_save"
-        android:src="@mipmap/ic_save_black_24dp"
-        android:contentDescription="@string/button_save"
-        android:onClick="saveButtonOnClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="25dp"
+        android:text="Enter Desired Quantity: "
+        android:layout_marginTop="29dp"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/edit_text_product_created_on"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="120dp"
+        android:layout_height="40dp"
+        android:text="Add To Cart"
+        android:id="@+id/button2"
         android:layout_alignParentBottom="true"
-        style="?android:attr/buttonBarButtonStyle"/>
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
