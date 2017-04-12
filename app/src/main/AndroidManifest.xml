@@ -49,7 +49,11 @@
         <activity
             android:name=".TransactionSummaryActivity"
             android:label="@string/title_activity_transaction_summary"
+            android:parentActivityName=".StartTransactionActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.uark.uarkregisterapp.StartTransactionActivity"/>
         </activity>
     </application>
 

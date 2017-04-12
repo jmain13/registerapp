@@ -3,8 +3,10 @@ package edu.uark.uarkregisterapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class TransactionSummaryActivity extends AppCompatActivity {
@@ -13,6 +15,12 @@ public class TransactionSummaryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction_summary);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+
+        ActionBar actionBar = this.getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -23,7 +31,7 @@ public class TransactionSummaryActivity extends AppCompatActivity {
     public void checkOutButtonOnClick(View view) {
         this.displayFunctionalityNotAvailableDialog();
     }
-    
+
     private void displayFunctionalityNotAvailableDialog() {
         new AlertDialog.Builder(this).
             setMessage(R.string.alert_dialog_functionality_not_available).

@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void productSalesReportButtonOnClick(View view) {
-		this.displayFunctionalityNotAvailableDialog();
+		this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
 	}
 
 	public void cashierSalesReportButtonOnClick(View view) {
