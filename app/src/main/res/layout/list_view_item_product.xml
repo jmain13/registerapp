@@ -22,4 +22,22 @@
         android:gravity="end"
         android:layout_gravity="end"/>
 
+    <TextView
+        android:id="@+id/list_view_item_product_price"
+        android:text="@string/text_view_products_price"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:gravity="end"
+        android:layout_gravity="end"/>
+
+    <TextView
+        android:id="@+id/list_view_item_product_active"
+        android:text="@string/text_view_products_active"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="3"
+        android:gravity="end"
+        android:layout_gravity="end"/>
+
 </LinearLayout>

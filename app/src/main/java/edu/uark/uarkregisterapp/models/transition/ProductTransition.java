@@ -40,6 +40,24 @@ public class ProductTransition implements Parcelable {
 		return this;
 	}
 
+	private double price;
+	public double getPrice() {
+		return this.price;
+	}
+	public ProductTransition setPrice(double price) {
+		this.price = price;
+		return this;
+	}
+
+	private boolean active;
+	public boolean getActive() {
+		return this.active;
+	}
+	public ProductTransition setActive(boolean active) {
+		this.active = active;
+		return this;
+	}
+
 	private Date createdOn;
 	public Date getCreatedOn() {
 		return this.createdOn;
@@ -54,6 +72,10 @@ public class ProductTransition implements Parcelable {
 		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
 		destination.writeString(this.lookupCode);
 		destination.writeInt(this.count);
+		destination.writeDouble(this.price);
+		if (this.active) { destination.writeString("t"); }
+        else if (!this.active) { destination.writeString("f"); }
+        else { destination.writeString("n"); };
 		destination.writeLong(this.createdOn.getTime());
 	}
 
@@ -74,6 +96,8 @@ public class ProductTransition implements Parcelable {
 
 	public ProductTransition() {
 		this.count = -1;
+		this.price = -1.00;
+		this.active = false;
 		this.id = new UUID(0, 0);
 		this.createdOn = new Date();
 		this.lookupCode = StringUtils.EMPTY;
@@ -82,6 +106,8 @@ public class ProductTransition implements Parcelable {
 	public ProductTransition(Product product) {
 		this.id = product.getId();
 		this.count = product.getCount();
+		this.price = product.getPrice();
+		this.active = product.getActive();
 		this.createdOn = product.getCreatedOn();
 		this.lookupCode = product.getLookupCode();
 	}
@@ -90,6 +116,10 @@ public class ProductTransition implements Parcelable {
 		this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(productTransitionParcel.createByteArray()).execute();
 		this.lookupCode = productTransitionParcel.readString();
 		this.count = productTransitionParcel.readInt();
+		this.price = productTransitionParcel.readDouble();
+		String active_parcel = productTransitionParcel.readString();
+		if (active_parcel == "t") { this.active = true; }
+		else if (active_parcel == "f") { this.active = false; }
 
 		this.createdOn = new Date();
 		this.createdOn.setTime(productTransitionParcel.readLong());
