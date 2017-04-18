@@ -36,12 +36,14 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         }
 
         this.products = new ArrayList<>();
-        this.productListAdapter = new ProductListAdapter(this, this.products);
+        this.transactionProducts = new ArrayList<>();
+        this.productListAdapter = new ProductListAdapter(this, this.transactionProducts);
 
         this.getProductsListView().setAdapter(this.productListAdapter);
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                /*
                 Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
 
                 intent.putExtra(
@@ -50,6 +52,7 @@ public class TransactionSummaryActivity extends AppCompatActivity {
                 );
 
                 startActivity(intent);
+                */
             }
         });
 
@@ -101,6 +104,11 @@ public class TransactionSummaryActivity extends AppCompatActivity {
             products.addAll(
                     (new ProductService()).getProducts()
             );
+            transactionProducts.clear();
+            for (int i=0; i < products.size(); i++) {
+                Product p = products.get(i);
+                if (p.getActive()) { transactionProducts.add(p); }
+            }
 
             return null;
         }
@@ -118,8 +126,8 @@ public class TransactionSummaryActivity extends AppCompatActivity {
 
     private void getTotalPrice() {
         totalPrice = 0.00;
-        for (int i=0; i < products.size(); i++) {
-            Product p = products.get(i);
+        for (int i=0; i < transactionProducts.size(); i++) {
+            Product p = transactionProducts.get(i);
             totalPrice = totalPrice + p.getPrice();
         }
     }
@@ -136,6 +144,7 @@ public class TransactionSummaryActivity extends AppCompatActivity {
     }
 
     private List<Product> products;
+    private List<Product> transactionProducts;
     private AlertDialog loadingTransactionSummaryAlert;
     private ProductListAdapter productListAdapter;
     private double totalPrice;
