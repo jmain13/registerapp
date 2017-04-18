@@ -32,7 +32,7 @@
     <string name="text_view_label_products_created_on">Created On:</string>
     <string name="text_view_search_products_by_lookup_code">Search for products by lookup code</string>
     <string name="text_view_transaction_summary">Transaction Summary</string>
-    <string name="text_view_total_price">Total Price: </string>
+    <string name="text_view_total_price"></string>
     <string name="edit_text_hint_employee_create_first_name">First name</string>
     <string name="edit_text_hint_employee_create_last_name">Last name</string>
     <string name="edit_text_hint_employee_create_password">Password</string>
@@ -48,6 +48,7 @@
     <string name="alert_dialog_product_save">Saving Product...</string>
     <string name="alert_dialog_product_save_success">The product was successfully saved.</string>
     <string name="alert_dialog_product_save_failure">An issue was encountered when attempting to save the product. The changes were not saved.</string>
+    <string name="alert_dialog_transaction_summary_loading">Loading Transaction Summary</string>
     <string name="alert_dialog_employee_create_validation_first_name">First name may not be empty.</string>
     <string name="alert_dialog_employee_create_validation_last_name">Last name may not be empty.</string>
     <string name="alert_dialog_employee_create_validation_password">Password may not be empty.</string>
