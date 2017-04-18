@@ -23,12 +23,12 @@
     <string name="text_view_products_lookup_code">LookupCode</string>
     <string name="text_view_login_employee_id">Employee ID</string>
     <string name="text_view_login_password">Password</string>
-    <string name="text_view_products_count">0</string>
+    <string name="text_view_products_quantity">0</string>
     <string name="text_view_products_price">$0.00</string>
     <string name="text_view_products_active">Active</string>
     <string name="text_view_products_created_on">01/01/1970</string>
     <string name="text_view_label_products_lookup_code">Lookup Code:</string>
-    <string name="text_view_label_products_count">Count:</string>
+    <string name="text_view_label_products_quantity">Quantity:</string>
     <string name="text_view_label_products_created_on">Created On:</string>
     <string name="text_view_search_products_by_lookup_code">Search for products by lookup code</string>
     <string name="text_view_transaction_summary">Transaction Summary</string>

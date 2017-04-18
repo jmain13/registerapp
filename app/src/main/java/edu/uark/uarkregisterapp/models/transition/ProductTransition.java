@@ -31,12 +31,12 @@ public class ProductTransition implements Parcelable {
 		return this;
 	}
 
-	private int count;
-	public int getCount() {
-		return this.count;
+	private int quantity;
+	public int getQuantity() {
+		return this.quantity;
 	}
-	public ProductTransition setCount(int count) {
-		this.count = count;
+	public ProductTransition setQuantity(int quantity) {
+		this.quantity = quantity;
 		return this;
 	}
 
@@ -71,7 +71,7 @@ public class ProductTransition implements Parcelable {
 	public void writeToParcel(Parcel destination, int flags) {
 		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
 		destination.writeString(this.lookupCode);
-		destination.writeInt(this.count);
+		destination.writeInt(this.quantity);
 		destination.writeDouble(this.price);
 		if (this.active) { destination.writeString("t"); }
         else if (!this.active) { destination.writeString("f"); }
@@ -95,7 +95,7 @@ public class ProductTransition implements Parcelable {
 	};
 
 	public ProductTransition() {
-		this.count = -1;
+		this.quantity = -1;
 		this.price = -1.00;
 		this.active = false;
 		this.id = new UUID(0, 0);
@@ -105,7 +105,7 @@ public class ProductTransition implements Parcelable {
 
 	public ProductTransition(Product product) {
 		this.id = product.getId();
-		this.count = product.getCount();
+		this.quantity = product.getQuantity();
 		this.price = product.getPrice();
 		this.active = product.getActive();
 		this.createdOn = product.getCreatedOn();
@@ -115,7 +115,7 @@ public class ProductTransition implements Parcelable {
 	public ProductTransition(Parcel productTransitionParcel) {
 		this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(productTransitionParcel.createByteArray()).execute();
 		this.lookupCode = productTransitionParcel.readString();
-		this.count = productTransitionParcel.readInt();
+		this.quantity = productTransitionParcel.readInt();
 		this.price = productTransitionParcel.readDouble();
 		String active_parcel = productTransitionParcel.readString();
 		if (active_parcel == "t") { this.active = true; }

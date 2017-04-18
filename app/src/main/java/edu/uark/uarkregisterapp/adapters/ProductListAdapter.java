@@ -29,9 +29,9 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 				lookupCodeTextView.setText(product.getLookupCode());
 			}
 
-			TextView countTextView = (TextView) view.findViewById(R.id.list_view_item_product_count);
-			if (countTextView != null) {
-				countTextView.setText(String.format(Locale.getDefault(), "%d", product.getCount()));
+			TextView quantityTextView = (TextView) view.findViewById(R.id.list_view_item_product_count);
+			if (quantityTextView != null) {
+				quantityTextView.setText(String.format(Locale.getDefault(), "%d", product.getQuantity()));
 			}
 
 			TextView priceTextView = (TextView) view.findViewById(R.id.list_view_item_product_price);

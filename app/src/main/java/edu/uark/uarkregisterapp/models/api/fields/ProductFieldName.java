@@ -5,7 +5,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.FieldNameInterface;
 public enum ProductFieldName implements FieldNameInterface {
 	ID("id"),
 	LOOKUP_CODE("lookupCode"),
-	COUNT("count"),
+	QUANTITY("quantity"),
 	PRICE("price"),
 	ACTIVE("active"),
 	API_REQUEST_STATUS("apiRequestStatus"),

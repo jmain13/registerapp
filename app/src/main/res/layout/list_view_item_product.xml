@@ -14,8 +14,8 @@
         android:layout_gravity="start"/>
 
     <TextView
-        android:id="@+id/list_view_item_product_count"
-        android:text="@string/text_view_products_count"
+        android:id="@+id/list_view_item_product_quantity"
+        android:text="@string/text_view_products_quantity"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="3"
