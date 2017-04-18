@@ -53,7 +53,7 @@ public class ProductViewActivity extends AppCompatActivity {
 		super.onResume();
 
 		this.getProductLookupCodeEditText().setText(this.productTransition.getLookupCode());
-		this.getProductCountEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getCount()));
+		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getQuantity()));
 		this.getProductCreatedOnEditText().setText(
 			(new SimpleDateFormat("MM/dd/yyyy", Locale.US)).format(this.productTransition.getCreatedOn())
 		);
@@ -71,7 +71,7 @@ public class ProductViewActivity extends AppCompatActivity {
 		(new SaveActivityTask(
 			this,
 			this.getProductLookupCodeEditText().getText().toString(),
-			Integer.parseInt(this.getProductCountEditText().getText().toString())
+			Integer.parseInt(this.getProductQuantityEditText().getText().toString())
 		)).execute();
 	}
 
@@ -79,12 +79,12 @@ public class ProductViewActivity extends AppCompatActivity {
 		return (EditText) this.findViewById(R.id.edit_text_product_lookup_code);
 	}
 
-	private EditText getProductCountEditText() {
-		return (EditText) this.findViewById(R.id.edit_text_product_count);
+	private EditText getProductQuantityEditText() {
+		return (EditText) this.findViewById(R.id.edit_text_product_quantity);
 	}
 
 	private EditText getProductCreatedOnEditText() {
-		return (EditText) this.findViewById(R.id.edit_text_product_created_on);
+		return (EditText) this.findViewById(R.id.edit_text_product_price);
 	}
 
 	private class SaveActivityTask extends AsyncTask<Void, Void, Boolean> {
@@ -94,11 +94,11 @@ public class ProductViewActivity extends AppCompatActivity {
 				(new Product()).
 					setId(productTransition.getId()).
 					setLookupCode(this.lookupCode).
-					setCount(this.count)
+					setQuantity(this.quantity)
 			);
 
 			if (product.getApiRequestStatus() == ProductApiRequestStatus.OK) {
-				productTransition.setCount(this.count);
+				productTransition.setQuantity(this.quantity);
 				productTransition.setLookupCode(this.lookupCode);
 			}
 
@@ -131,12 +131,12 @@ public class ProductViewActivity extends AppCompatActivity {
 				show();
 		}
 
-		private int count;
+		private int quantity;
 		private String lookupCode;
 		private ProductViewActivity activity;
 
-		private SaveActivityTask(ProductViewActivity activity, String lookupCode, int count) {
-			this.count = count;
+		private SaveActivityTask(ProductViewActivity activity, String lookupCode, int quantity) {
+			this.quantity = quantity;
 			this.activity = activity;
 			this.lookupCode = lookupCode;
 		}
@@ -151,18 +151,18 @@ public class ProductViewActivity extends AppCompatActivity {
 			inputIsValid = false;
 		}
 
-		if (!inputIsValid && StringUtils.isBlank(this.getProductCountEditText().getText().toString())) {
-			validationMessage = this.getString(R.string.validation_product_count);
+		if (!inputIsValid && StringUtils.isBlank(this.getProductQuantityEditText().getText().toString())) {
+			validationMessage = this.getString(R.string.validation_product_quantity);
 			inputIsValid = false;
 		}
 
 		try {
-			if (Integer.parseInt(this.getProductCountEditText().getText().toString()) < 0) {
-				validationMessage = this.getString(R.string.validation_product_count);
+			if (Integer.parseInt(this.getProductQuantityEditText().getText().toString()) < 0) {
+				validationMessage = this.getString(R.string.validation_product_quantity);
 				inputIsValid = false;
 			}
 		} catch (NumberFormatException nfe) {
-			validationMessage = this.getString(R.string.validation_product_count);
+			validationMessage = this.getString(R.string.validation_product_quantity);
 			inputIsValid = false;
 		}
 
