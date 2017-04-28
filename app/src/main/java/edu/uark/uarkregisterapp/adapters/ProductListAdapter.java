@@ -36,7 +36,7 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 
 			TextView priceTextView = (TextView) view.findViewById(R.id.list_view_item_product_price);
 			if (priceTextView != null) {
-				priceTextView.setText(String.format(Locale.getDefault(), "%d", product.getPrice()));
+				priceTextView.setText(String.format(Locale.getDefault(), "%f", product.getPrice()));
 			}
 		}
 
