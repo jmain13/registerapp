@@ -43,7 +43,6 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*
                 Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
 
                 intent.putExtra(
@@ -52,7 +51,6 @@ public class TransactionSummaryActivity extends AppCompatActivity {
                 );
 
                 startActivity(intent);
-                */
             }
         });
 
@@ -90,14 +88,14 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         super.onResume();
 
         this.loadingTransactionSummaryAlert.show();
-        (new TransactionSummaryActivity.RetrieveProductsTask()).execute();
+        (new RetrieveTransactionProductsTask()).execute();
     }
 
     private ListView getProductsListView() {
         return (ListView) this.findViewById(R.id.list_view_products);
     }
 
-    private class RetrieveProductsTask extends AsyncTask<Void, Void, Void> {
+    private class RetrieveTransactionProductsTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
             products.clear();

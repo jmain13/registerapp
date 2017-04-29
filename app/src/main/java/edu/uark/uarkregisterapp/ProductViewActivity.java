@@ -54,9 +54,7 @@ public class ProductViewActivity extends AppCompatActivity {
 
 		this.getProductLookupCodeEditText().setText(this.productTransition.getLookupCode());
 		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getQuantity()));
-		this.getProductCreatedOnEditText().setText(
-			(new SimpleDateFormat("MM/dd/yyyy", Locale.US)).format(this.productTransition.getCreatedOn())
-		);
+		this.getProductPriceEditText().setText("$" + String.format(Locale.getDefault(), "%.2f", this.productTransition.getPrice()));
 	}
 
 	public void saveButtonOnClick(View view) {
@@ -83,7 +81,7 @@ public class ProductViewActivity extends AppCompatActivity {
 		return (EditText) this.findViewById(R.id.edit_text_product_quantity);
 	}
 
-	private EditText getProductCreatedOnEditText() {
+	private EditText getProductPriceEditText() {
 		return (EditText) this.findViewById(R.id.edit_text_product_price);
 	}
 

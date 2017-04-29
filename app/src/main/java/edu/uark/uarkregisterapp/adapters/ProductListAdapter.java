@@ -36,7 +36,13 @@ public class ProductListAdapter extends ArrayAdapter<Product> {
 
 			TextView priceTextView = (TextView) view.findViewById(R.id.list_view_item_product_price);
 			if (priceTextView != null) {
-				priceTextView.setText(String.format(Locale.getDefault(), "%f", product.getPrice()));
+				priceTextView.setText("$" + String.format(Locale.getDefault(), "%.2f", product.getPrice()));
+			}
+
+			TextView activeTextView = (TextView) view.findViewById(R.id.list_view_item_product_active);
+			if (activeTextView != null) {
+				if (product.getActive()) { activeTextView.setText("Active"); }
+				else { activeTextView.setText("Inactive"); }
 			}
 		}
 
