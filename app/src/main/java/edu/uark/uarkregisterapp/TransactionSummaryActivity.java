@@ -43,7 +43,7 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ProductViewTransactionActivity.class);
 
                 intent.putExtra(
                         getString(R.string.intent_extra_product),

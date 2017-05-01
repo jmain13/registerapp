@@ -2,6 +2,7 @@
     <string name="app_name">UARKRegisterApp</string>
     <string name="title_activity_products_listing">Products</string>
     <string name="title_activity_product_view">Product Details</string>
+    <string name="title_activity_product_view_transaction">Product Details</string>
     <string name="title_activity_create_employee">Create Employee</string>
     <string name="title_activity_main">UARK Register App</string>
     <string name="title_activity_start_transaction">Start Transaction</string>
@@ -18,7 +19,9 @@
     <string name="button_log_out">Log Out</string>
     <string name="button_view_cart">View Cart</string>
     <string name="button_add_to_cart">Add to Cart</string>
-    <string name="button_check_out">Check OUt</string>
+    <string name="button_remove_all_from_cart">Remove All From Cart</string>
+    <string name="button_change_quantity">Change Quantity</string>
+    <string name="button_check_out">Check Out</string>
     <string name="text_view_landing_welcome">Hello!</string>
     <string name="text_view_please_sign_in">Please Sign In</string>
     <string name="text_view_products_lookup_code">LookupCode</string>

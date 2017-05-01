@@ -13,7 +13,6 @@ import android.widget.EditText;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import edu.uark.uarkregisterapp.models.api.Product;
@@ -21,11 +20,11 @@ import edu.uark.uarkregisterapp.models.api.enums.ProductApiRequestStatus;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
-public class ProductViewActivity extends AppCompatActivity {
+public class ProductViewTransactionActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_product_view);
+		setContentView(R.layout.activity_product_view_transaction);
 		setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
 		ActionBar actionBar = this.getSupportActionBar();
@@ -56,6 +55,25 @@ public class ProductViewActivity extends AppCompatActivity {
 		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getQuantity()));
 		this.getProductPriceEditText().setText("$" + String.format(Locale.getDefault(), "%.2f", this.productTransition.getPrice()));
 	}
+
+	public void changeQuantityButtonOnClick(View view) { this.displayFunctionalityNotAvailableDialog(); }
+	public void removeAllFromCartButtonOnClick(View view) { this.displayFunctionalityNotAvailableDialog(); }
+
+	private void displayFunctionalityNotAvailableDialog() {
+		new AlertDialog.Builder(this).
+				setMessage(R.string.alert_dialog_functionality_not_available).
+				setPositiveButton(
+						R.string.button_ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.dismiss();
+							}
+						}
+				).
+				create().
+				show();
+	}
+
 	/*
 	public void saveButtonOnClick(View view) {
 		if (!this.validateInput()) {
@@ -131,9 +149,9 @@ public class ProductViewActivity extends AppCompatActivity {
 
 		private int quantity;
 		private String lookupCode;
-		private ProductViewActivity activity;
+		private ProductViewTransactionActivity activity;
 
-		private SaveActivityTask(ProductViewActivity activity, String lookupCode, int quantity) {
+		private SaveActivityTask(ProductViewTransactionActivity activity, String lookupCode, int quantity) {
 			this.quantity = quantity;
 			this.activity = activity;
 			this.lookupCode = lookupCode;
