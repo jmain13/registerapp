@@ -14,7 +14,7 @@
     <string name="button_sign_in">Sign In</string>
     <string name="button_begin_transaction">Begin Transaction</string>
     <string name="button_create_employee">Create Employee</string>
-    <string name="button_product_sales_report">TEST: ProductsListingActivity</string>
+    <string name="button_product_sales_report">Report: Product</string>
     <string name="button_cashier_sales_report">Report: Cashier</string>
     <string name="button_log_out">Log Out</string>
     <string name="button_view_transaction">View Transaction</string>
@@ -80,4 +80,6 @@
     <string name="validation_product_desired_quantity">Product desired quantity must be a number and may not be negative.</string>
     <string name="intent_extra_employee">intent_extra_employee</string>
     <string name="intent_extra_product">intent_extra_product</string>
+    <string name="intent_extra_transaction">intent_extra_transaction</string>
+    <string name="intent_extra_transaction_entry">intent_extra_transaction_entry</string>
 </resources>

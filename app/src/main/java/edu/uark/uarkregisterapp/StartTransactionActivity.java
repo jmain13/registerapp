@@ -1,4 +1,5 @@
 package edu.uark.uarkregisterapp;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -23,10 +24,12 @@ import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
+import edu.uark.uarkregisterapp.models.api.Transaction;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
 
 public class StartTransactionActivity extends AppCompatActivity {
 
@@ -64,6 +67,8 @@ public class StartTransactionActivity extends AppCompatActivity {
             }
         });
 
+        this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction");
+
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,6 +77,11 @@ public class StartTransactionActivity extends AppCompatActivity {
                 intent.putExtra(
                         getString(R.string.intent_extra_product),
                         new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
+                );
+
+                intent.putExtra(
+                        getString(R.string.intent_extra_transaction),
+                        transactionTransition
                 );
 
                 startActivity(intent);
@@ -90,10 +100,16 @@ public class StartTransactionActivity extends AppCompatActivity {
         (new StartTransactionActivity.RetrieveProductsTask()).execute();
     }
 
-    public void viewCartButtonOnClick(View view) {
-        this.startActivity(new Intent(getApplicationContext(), TransactionSummaryActivity.class));
-    }
+    public void viewTransactionSummaryButtonOnClick(View view) {
+        Intent intent = new Intent(getApplicationContext(), TransactionSummaryActivity.class);
 
+        intent.putExtra(
+                getString(R.string.intent_extra_transaction),
+                transactionTransition
+        );
+
+        startActivity(intent);
+    }
 
     private ListView getProductsListView() {
         return (ListView) this.findViewById(R.id.list_view_products);
@@ -117,7 +133,12 @@ public class StartTransactionActivity extends AppCompatActivity {
         }
     }
 
+    public void viewTransactionButtonOnClick(View view) {
+        this.startActivity(new Intent(getApplicationContext(), TransactionSummaryActivity.class));
+    }
+
     private List<Product> products;
     private AlertDialog loadingProductsAlert;
     private ProductListAdapter productListAdapter;
+    private TransactionTransition transactionTransition;
 }

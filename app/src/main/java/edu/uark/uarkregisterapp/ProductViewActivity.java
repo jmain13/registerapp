@@ -12,16 +12,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.UUID;
 
 import edu.uark.uarkregisterapp.models.api.TransactionEntry;
 import edu.uark.uarkregisterapp.models.api.enums.TransactionEntryApiRequestStatus;
 import edu.uark.uarkregisterapp.models.api.services.TransactionEntryService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 import edu.uark.uarkregisterapp.models.transition.TransactionEntryTransition;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 public class ProductViewActivity extends AppCompatActivity {
 	@Override
@@ -36,6 +40,7 @@ public class ProductViewActivity extends AppCompatActivity {
 		}
 
 		this.productTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
+		this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction");
 	}
 
 	@Override
@@ -56,43 +61,34 @@ public class ProductViewActivity extends AppCompatActivity {
 
 		this.getProductLookupCodeEditText().setText(this.productTransition.getLookupCode());
 		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getQuantity()));
-		this.getProductPriceEditText().setText("$" + String.format(Locale.getDefault(), "%.2f", this.productTransition.getPrice()));
+		this.getProductPriceEditText().setText(String.format(Locale.getDefault(), "%.2f", this.productTransition.getPrice()));
 	}
 
-	public void addToTransactionButtonOnClick(View view)  {
-		//this.displayFunctionalityNotAvailableDialog();
-
+	public void addToTransactionButtonOnClick(View view) {
 		if (!this.validateInput()) {
 			return;
 		}
 
-		this.addToTransactionAlert = new AlertDialog.Builder(this).
-				setMessage(R.string.alert_dialog_add_to_transaction).
-				create();
+		if(this.transactionTransition.getTransactionEntries() == null) {
+			this.transactionTransition.setTransactionEntries(new ArrayList<TransactionEntry>());
+		}
 
-		(new AddToTransactionActivityTask(
-				this,
-				this.getProductLookupCodeEditText().getText().toString(),
-				Integer.parseInt(this.getProductDesiredQuantityEditText().getText().toString()),
-				Double.parseDouble(this.getProductPriceEditText().getText().toString())
-		)).execute();
+		this.transactionTransition.addTransactionEntry(new TransactionEntry().
+				setFromTransaction(this.transactionTransition.getId()).
+				setLookupCode(this.getProductLookupCodeEditText().getText().toString()).
+				setPrice(Double.parseDouble(this.getProductPriceEditText().getText().toString())).
+				setQuantity(Integer.parseInt(this.getProductDesiredQuantityEditText().getText().toString()))
+		);
 
+		Intent intent = new Intent(getApplicationContext(), StartTransactionActivity.class);
+
+		intent.putExtra(
+				getString(R.string.intent_extra_transaction),
+				transactionTransition
+		);
+
+		startActivity(intent);
 	}
-	/*
-	private void displayFunctionalityNotAvailableDialog() {
-		new AlertDialog.Builder(this).
-				setMessage(R.string.alert_dialog_functionality_not_available).
-				setPositiveButton(
-						R.string.button_ok,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								dialog.dismiss();
-							}
-						}
-				).
-				create().
-				show();
-	}*/
 
 	private EditText getProductLookupCodeEditText() {
 		return (EditText) this.findViewById(R.id.edit_text_product_lookup_code);
@@ -108,69 +104,6 @@ public class ProductViewActivity extends AppCompatActivity {
 
 	private EditText getProductDesiredQuantityEditText() {
 		return (EditText) this.findViewById(R.id.edit_text_product_desired_quantity);
-	}
-
-
-	private class AddToTransactionActivityTask extends AsyncTask<Void, Void, Boolean> {
-		@Override
-		protected Boolean doInBackground(Void... params) {
-			TransactionEntry transactionEntry = (new TransactionEntryService()).putTransactionEntry(
-				(new TransactionEntry()).
-					setId(transactionEntryTransition.getId()).
-					setFromTransaction(transactionEntryTransition.getFromTransaction()).
-					setLookupCode(this.lookupCode).
-					setQuantity(this.desiredQuantity).
-					setPrice(this.price)
-			);
-
-			// TODO: Check ID, FromTransaction!
-
-			if (transactionEntry.getApiRequestStatus() == TransactionEntryApiRequestStatus.OK) {
-				transactionEntryTransition.setLookupCode(this.lookupCode);
-				transactionEntryTransition.setQuantity(this.desiredQuantity);
-				transactionEntryTransition.setPrice(this.price);
-			}
-
-			return (transactionEntry.getApiRequestStatus() == TransactionEntryApiRequestStatus.OK);
-		}
-
-		@Override
-		protected void onPostExecute(Boolean successfulSave) {
-			String message;
-
-			addToTransactionAlert.dismiss();
-
-			if (successfulSave) {
-				message = getString(R.string.alert_dialog_add_to_transaction_success);
-			} else {
-				message = getString(R.string.alert_dialog_add_to_transaction_failure);
-			}
-
-			new AlertDialog.Builder(this.activity).
-				setMessage(message).
-				setPositiveButton(
-					R.string.button_dismiss,
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int id) {
-							dialog.dismiss();
-						}
-					}
-				).
-				create().
-				show();
-		}
-
-		private ProductViewActivity activity;
-		private String lookupCode;
-		private int desiredQuantity;
-		private double price;
-
-		private AddToTransactionActivityTask(ProductViewActivity activity, String lookupCode, int desiredQuantity, double price) {
-			this.activity = activity;
-			this.lookupCode = lookupCode;
-			this.desiredQuantity = desiredQuantity;
-			this.price = price;
-		}
 	}
 
 	private boolean validateInput() {
@@ -227,5 +160,6 @@ public class ProductViewActivity extends AppCompatActivity {
 
 	private AlertDialog addToTransactionAlert;
 	private ProductTransition productTransition;
+	private TransactionTransition transactionTransition;
 	private TransactionEntryTransition transactionEntryTransition;
 }

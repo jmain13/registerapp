@@ -13,7 +13,7 @@ import java.util.Locale;
 import edu.uark.uarkregisterapp.R;
 import edu.uark.uarkregisterapp.models.api.TransactionEntry;
 
-public class TransactionListAdapter extends ArrayAdapter<TransactionEntry> {
+public class TransactionEntryListAdapter extends ArrayAdapter<TransactionEntry> {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view = convertView;
@@ -43,7 +43,7 @@ public class TransactionListAdapter extends ArrayAdapter<TransactionEntry> {
 		return view;
 	}
 
-	public TransactionListAdapter(Context context, List<TransactionEntry> entries) {
+	public TransactionEntryListAdapter(Context context, List<TransactionEntry> entries) {
 		super(context, R.layout.list_view_item_transaction_entry, entries);
 	}
 }

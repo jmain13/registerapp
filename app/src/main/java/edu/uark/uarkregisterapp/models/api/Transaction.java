@@ -5,11 +5,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -20,7 +20,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
 
 import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
-public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterface<Transaction> {
+public class Transaction implements Serializable, ConvertToJsonInterface, LoadFromJsonInterface<Transaction> {
 	private UUID id;
 	public UUID getId() {
 		return this.id;
@@ -79,11 +79,11 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 		return this;
 	}
 
-	private List<TransactionEntry> entries;
-	public List<TransactionEntry> getTransactionEntries() {
+	private ArrayList<TransactionEntry> entries;
+	public ArrayList<TransactionEntry> getTransactionEntries() {
 		return this.entries;
 	}
-	public Transaction setTransactionEntries(List<TransactionEntry> entries) {
+	public Transaction setTransactionEntries(ArrayList<TransactionEntry> entries) {
 		this.entries = entries;
 		return this;
 	}
@@ -182,7 +182,7 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 	}
 
 	public Transaction() {
-		this.id = new UUID(0, 0);
+		this.id = UUID.randomUUID();
 		this.cashierId = new UUID(0, 0);
 		this.totalQuantity = -1;
 		this.totalPrice = -1.00;
@@ -190,7 +190,7 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 		this.createdOn = new Date();
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = TransactionApiRequestStatus.OK;
-		this.entries = new LinkedList<TransactionEntry>();
+		this.entries = new ArrayList<TransactionEntry>();
 	}
 
 	public Transaction(TransactionTransition transactionTransition) {
@@ -201,7 +201,7 @@ public class Transaction implements ConvertToJsonInterface, LoadFromJsonInterfac
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.createdOn = transactionTransition.getCreatedOn();
 		this.apiRequestStatus = TransactionApiRequestStatus.OK;
-		this.entries = new LinkedList<TransactionEntry>();
+		this.entries = new ArrayList<TransactionEntry>();
 	}
 
 }

@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
+import edu.uark.uarkregisterapp.models.api.Transaction;
 
 public class MainActivity extends AppCompatActivity {
 	@Override
@@ -29,11 +31,18 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void beginTransactionButtonOnClick(View view) {
-		this.startActivity(new Intent(getApplicationContext(), StartTransactionActivity.class));
+		Intent intent = new Intent(getApplicationContext(), StartTransactionActivity.class);
+
+		intent.putExtra(
+				getString(R.string.intent_extra_transaction),
+				new TransactionTransition(new Transaction())
+		);
+
+		this.startActivity(intent);
 	}
 
 	public void productSalesReportButtonOnClick(View view) {
-		this.startActivity(new Intent(getApplicationContext(), ProductsListingActivity.class));
+		this.displayFunctionalityNotAvailableDialog();
 	}
 
 	public void cashierSalesReportButtonOnClick(View view) {

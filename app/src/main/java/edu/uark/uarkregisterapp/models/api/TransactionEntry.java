@@ -6,17 +6,23 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.UUID;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import edu.uark.uarkregisterapp.commands.converters.ByteToUUIDConverterCommand;
+import edu.uark.uarkregisterapp.commands.converters.UUIDToByteConverterCommand;
 import edu.uark.uarkregisterapp.models.api.enums.TransactionEntryApiRequestStatus;
 import edu.uark.uarkregisterapp.models.api.fields.TransactionEntryFieldName;
 import edu.uark.uarkregisterapp.models.api.interfaces.ConvertToJsonInterface;
 import edu.uark.uarkregisterapp.models.api.interfaces.LoadFromJsonInterface;
 import edu.uark.uarkregisterapp.models.transition.TransactionEntryTransition;
 
-public class TransactionEntry implements ConvertToJsonInterface, LoadFromJsonInterface<TransactionEntry> {
+public class TransactionEntry implements Parcelable, ConvertToJsonInterface, LoadFromJsonInterface<TransactionEntry> {
 	private UUID id;
 	public UUID getId() {
 		return this.id;
@@ -150,13 +156,59 @@ public class TransactionEntry implements ConvertToJsonInterface, LoadFromJsonInt
 		return jsonObject;
 	}
 
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	public static final Creator<TransactionEntry> CREATOR = new Creator<TransactionEntry>() {
+		public TransactionEntry createFromParcel(Parcel transactionEntryParcel) {
+			return new TransactionEntry(transactionEntryParcel);
+		}
+
+		public TransactionEntry[] newArray(int size) {
+			return new TransactionEntry[size];
+		}
+	};
+
+	@Override
+	public void writeToParcel(Parcel destination, int flags) {
+		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
+		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.fromTransaction).execute());
+		destination.writeInt(this.quantity);
+		destination.writeDouble(this.price);
+		destination.writeLong(this.createdOn.getTime());
+	}
+
+	public TransactionEntry(Parcel transactionEntryParcel) {
+		this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionEntryParcel.createByteArray()).execute();
+		this.fromTransaction = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionEntryParcel.createByteArray()).execute();
+		this.quantity = transactionEntryParcel.readInt();
+		this.price = transactionEntryParcel.readDouble();
+		String active_parcel = transactionEntryParcel.readString();
+
+		this.createdOn = new Date();
+		this.createdOn.setTime(transactionEntryParcel.readLong());
+	}
+
 	public TransactionEntry() {
+		this.id = UUID.randomUUID();
+		this.fromTransaction = new UUID(0, 0);
+		this.lookupCode = "";
 		this.quantity = -1;
 		this.price = -1.00;
-		this.lookupCode = "";
-		this.id = new UUID(0, 0);
-		this.fromTransaction = new UUID(0, 0);
 		this.createdOn = new Date();
+		this.apiRequestMessage = StringUtils.EMPTY;
+		this.apiRequestStatus = TransactionEntryApiRequestStatus.OK;
+	}
+
+	public TransactionEntry(TransactionEntry transactionEntry) {
+		this.id = transactionEntry.getId();
+		this.fromTransaction = transactionEntry.getFromTransaction();
+		this.lookupCode = transactionEntry.getLookupCode();
+		this.quantity = transactionEntry.getQuantity();
+		this.price = transactionEntry.getPrice();
+		this.createdOn = transactionEntry.getCreatedOn();
 		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = TransactionEntryApiRequestStatus.OK;
 	}
@@ -164,11 +216,11 @@ public class TransactionEntry implements ConvertToJsonInterface, LoadFromJsonInt
 	public TransactionEntry(TransactionEntryTransition transactionEntryTransition) {
 		this.id = transactionEntryTransition.getId();
 		this.fromTransaction = transactionEntryTransition.getFromTransaction();
+		this.lookupCode = transactionEntryTransition.getLookupCode();
 		this.quantity = transactionEntryTransition.getQuantity();
 		this.price = transactionEntryTransition.getPrice();
-		this.apiRequestMessage = StringUtils.EMPTY;
 		this.createdOn = transactionEntryTransition.getCreatedOn();
+		this.apiRequestMessage = StringUtils.EMPTY;
 		this.apiRequestStatus = TransactionEntryApiRequestStatus.OK;
-		this.lookupCode = transactionEntryTransition.getLookupCode();
 	}
 }

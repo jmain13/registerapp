@@ -17,9 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.text.DecimalFormat;
 
-import edu.uark.uarkregisterapp.adapters.TransactionListAdapter;
+import edu.uark.uarkregisterapp.adapters.TransactionEntryListAdapter;
 import edu.uark.uarkregisterapp.models.api.TransactionEntry;
 import edu.uark.uarkregisterapp.models.api.services.TransactionService;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 import edu.uark.uarkregisterapp.models.api.services.TransactionEntryService;
 import edu.uark.uarkregisterapp.models.transition.TransactionEntryTransition;
 
@@ -36,33 +37,45 @@ public class TransactionSummaryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        this.entries = new ArrayList<>();
-        this.transactionListAdapter = new TransactionListAdapter(this, this.entries);
+        this.transactionTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_transaction));
 
-        this.getTransactionEntriesListView().setAdapter(this.transactionListAdapter);
+        ArrayList<TransactionEntry> my_entries = this.transactionTransition.getTransactionEntries();
+        for(int i = 0; i < this.transactionTransition.getTransactionEntries().size(); i++) {
+            TransactionEntry e = new TransactionEntry(my_entries.get(i));
+            System.out.println("UUID: " + e.getId().toString());
+            System.out.println("FromTransaction: " + e.getFromTransaction().toString());
+            System.out.println("lookupcode: " + e.getLookupCode());
+            System.out.println("quantity: " + e.getQuantity());
+        }
+        System.out.println("Entries: " + this.transactionTransition.getTransactionEntries().toString());
+
+        this.transactionEntryListAdapter = new TransactionEntryListAdapter(this, this.transactionTransition.getTransactionEntries());
+
+
+
+        this.getTransactionEntriesListView().setAdapter(this.transactionEntryListAdapter);
         this.getTransactionEntriesListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), TransactionEntryViewActivity.class);
 
                 intent.putExtra(
-                        getString(R.string.intent_extra_product),
+                        getString(R.string.intent_extra_transaction_entry),
                         new TransactionEntryTransition((TransactionEntry) getTransactionEntriesListView().getItemAtPosition(position))
+                );
+
+                intent.putExtra(
+                        getString(R.string.intent_extra_transaction),
+                        transactionTransition
                 );
 
                 startActivity(intent);
             }
         });
-
-        this.loadingTransactionSummaryAlert = new AlertDialog.Builder(this).
-                setMessage(R.string.alert_dialog_transaction_summary_loading).
-                create();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
+    protected void onStart() { super.onStart(); }
 
     public void checkOutButtonOnClick(View view) {
         this.displayFunctionalityNotAvailableDialog();
@@ -84,60 +97,13 @@ public class TransactionSummaryActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        this.loadingTransactionSummaryAlert.show();
-        (new RetrieveTransactionEntriesTask()).execute();
-    }
+    protected void onResume() { super.onResume(); }
 
     private ListView getTransactionEntriesListView() {
         return (ListView) this.findViewById(R.id.list_view_transaction_entries);
     }
 
-    private class RetrieveTransactionEntriesTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... params) {
-            entries.clear();
-            entries.addAll(
-                    (new TransactionService()).getTransactionEntries()
-            );
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void param) {
-            transactionListAdapter.notifyDataSetChanged();
-            getTotalPrice();
-            displayTotalPrice();
-            loadingTransactionSummaryAlert.dismiss();
-        }
-
-
-    }
-
-    private void getTotalPrice() {
-        totalPrice = 0.00;
-        for (int i=0; i < entries.size(); i++) {
-            TransactionEntry e = entries.get(i);
-            totalPrice = totalPrice + e.getPrice();
-        }
-    }
-
-    private void displayTotalPrice() {
-        DecimalFormat df = new DecimalFormat();
-        df.setMinimumFractionDigits(2);
-        getTotalPriceTextView().setText("Total Price: $" + df.format(totalPrice));
-    }
-
-
-    private TextView getTotalPriceTextView() {
-        return (TextView)this.findViewById(R.id.textView_total_price);
-    }
-
     private List<TransactionEntry> entries;
-    private AlertDialog loadingTransactionSummaryAlert;
-    private TransactionListAdapter transactionListAdapter;
-    private double totalPrice;
+    private TransactionEntryListAdapter transactionEntryListAdapter;
+    private TransactionTransition transactionTransition;
 }

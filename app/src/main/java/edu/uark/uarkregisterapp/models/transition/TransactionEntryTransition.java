@@ -70,6 +70,7 @@ public class TransactionEntryTransition implements Parcelable {
 	@Override
 	public void writeToParcel(Parcel destination, int flags) {
 		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.id).execute());
+		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.fromTransaction).execute());
 		destination.writeString(this.lookupCode);
 		destination.writeInt(this.quantity);
 		destination.writeDouble(this.price);
@@ -92,23 +93,26 @@ public class TransactionEntryTransition implements Parcelable {
 	};
 
 	public TransactionEntryTransition() {
+		this.id = new UUID(0, 0);
+		this.fromTransaction = new UUID(0, 0);
+		this.lookupCode = StringUtils.EMPTY;
 		this.quantity = -1;
 		this.price = -1.00;
-		this.id = new UUID(0, 0);
 		this.createdOn = new Date();
-		this.lookupCode = StringUtils.EMPTY;
 	}
 
 	public TransactionEntryTransition(TransactionEntry transactionEntry) {
 		this.id = transactionEntry.getId();
+		this.fromTransaction = transactionEntry.getFromTransaction();
+		this.lookupCode = transactionEntry.getLookupCode();
 		this.quantity = transactionEntry.getQuantity();
 		this.price = transactionEntry.getPrice();
 		this.createdOn = transactionEntry.getCreatedOn();
-		this.lookupCode = transactionEntry.getLookupCode();
 	}
 
 	public TransactionEntryTransition(Parcel transactionEntryTransitionParcel) {
 		this.id = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionEntryTransitionParcel.createByteArray()).execute();
+		this.fromTransaction = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionEntryTransitionParcel.createByteArray()).execute();
 		this.lookupCode = transactionEntryTransitionParcel.readString();
 		this.quantity = transactionEntryTransitionParcel.readInt();
 		this.price = transactionEntryTransitionParcel.readDouble();
