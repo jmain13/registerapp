@@ -68,7 +68,7 @@ public class StartTransactionActivity extends AppCompatActivity {
         super.onStart();
     }
 
-    public void viewCartButtonOnClick(View view) {
+    public void viewTransactionButtonOnClick(View view) {
         this.startActivity(new Intent(getApplicationContext(), TransactionSummaryActivity.class));
     }
 }

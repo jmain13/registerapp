@@ -1,6 +1,7 @@
 package edu.uark.uarkregisterapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -56,6 +57,26 @@ public class ProductViewActivity extends AppCompatActivity {
 		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getQuantity()));
 		this.getProductPriceEditText().setText("$" + String.format(Locale.getDefault(), "%.2f", this.productTransition.getPrice()));
 	}
+
+	public void addToTransactionButtonOnClick(View view)  {
+		this.displayFunctionalityNotAvailableDialog();
+	}
+
+	private void displayFunctionalityNotAvailableDialog() {
+		new AlertDialog.Builder(this).
+				setMessage(R.string.alert_dialog_functionality_not_available).
+				setPositiveButton(
+						R.string.button_ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								dialog.dismiss();
+							}
+						}
+				).
+				create().
+				show();
+	}
+
 	/*
 	public void saveButtonOnClick(View view) {
 		if (!this.validateInput()) {

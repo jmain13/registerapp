@@ -11,76 +11,76 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="edu.uark.uarkregisterapp.ProductViewTransactionActivity"
-    tools:showIn="@layout/activity_product_view_transaction">
+    tools:context="edu.uark.uarkregisterapp.TransactionEntryViewActivity"
+    tools:showIn="@layout/activity_transaction_entry_view">
 
     <TextView
-        android:id="@+id/text_view_product_lookup_code"
+        android:id="@+id/text_view_transaction_entry_lookup_code"
         android:text="@string/text_view_label_products_lookup_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <EditText
-        android:id="@+id/edit_text_product_lookup_code"
+        android:id="@+id/edit_text_transaction_entry_lookup_code"
         android:hint="@string/text_view_products_lookup_code"
         android:inputType="text"
-        android:layout_below="@+id/text_view_product_lookup_code"
+        android:layout_below="@+id/text_view_transaction_entry_lookup_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/text_view_product_quantity"
+        android:id="@+id/text_view_transaction_entry_quantity"
         android:text="@string/text_view_label_products_quantity"
-        android:layout_below="@+id/edit_text_product_lookup_code"
+        android:layout_below="@+id/edit_text_transaction_entry_lookup_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"/>
 
     <EditText
-        android:id="@+id/edit_text_product_quantity"
-        android:hint="@string/text_view_products_quantity"
+        android:id="@+id/edit_text_transaction_entry_quantity"
+        android:hint="@string/text_view_transaction_entries_quantity"
         android:inputType="number"
-        android:layout_below="@+id/text_view_product_quantity"
+        android:layout_below="@+id/text_view_transaction_entry_quantity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/text_view_product_price"
+        android:id="@+id/text_view_transaction_entry_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edit_text_product_quantity"
+        android:layout_below="@+id/edit_text_transaction_entry_quantity"
         android:layout_marginTop="10dp"
-        android:text="@string/text_view_label_products_price" />
+        android:text="@string/text_view_label_transaction_entries_price" />
 
     <EditText
-        android:id="@+id/edit_text_product_price"
+        android:id="@+id/edit_text_transaction_entry_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/text_view_product_price"
+        android:layout_below="@+id/text_view_transaction_entry_price"
         android:layout_marginTop="5dp"
         android:enabled="false"
-        android:hint="@string/text_view_products_price"
+        android:hint="@string/text_view_transaction_entries_price"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:id="@+id/text_view_products_desired_quantity"
+        android:id="@+id/text_view_transaction_entries_desired_quantity"
         android:layout_width="150dp"
         android:layout_height="25dp"
-        android:layout_below="@+id/edit_text_product_price"
+        android:layout_below="@+id/edit_text_transaction_entry_price"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
-        android:text="@string/text_view_label_products_desired_quantity" />
+        android:text="@string/text_view_label_transaction_entries_desired_quantity" />
 
     <EditText
-        android:id="@+id/edit_text_products_desired_quantity"
+        android:id="@+id/edit_text_transaction_entries_desired_quantity"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_below="@+id/text_view_products_desired_quantity"
+        android:layout_below="@+id/text_view_transaction_entries_desired_quantity"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="0dp"
-        android:hint="@string/text_view_products_desired_quantity"
+        android:hint="@string/text_view_transaction_entries_desired_quantity"
         android:inputType="number"
         android:textAlignment="center" />
 
@@ -89,20 +89,20 @@
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:text="@string/button_change_quantity"
-        android:layout_below="@+id/edit_text_products_desired_quantity"
+        android:layout_below="@+id/edit_text_transaction_entries_desired_quantity"
         android:layout_marginTop="14dp"
         android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:onClick="changeQuantityButtonOnClick" />
 
     <Button
-        android:id="@+id/btn_remove_all_from_cart"
+        android:id="@+id/btn_remove_all_from_transaction"
         android:layout_width="200dp"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_below="@+id/btn_change_quantity"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:text="@string/button_remove_all_from_cart"
+        android:text="@string/button_remove_all_from_transaction"
         android:textAlignment="center"
         android:onClick="removeAllFromCartButtonOnClick" />
 

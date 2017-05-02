@@ -1,7 +1,6 @@
 package edu.uark.uarkregisterapp;
 
 import android.content.DialogInterface;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -15,16 +14,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
 
-import edu.uark.uarkregisterapp.models.api.Product;
-import edu.uark.uarkregisterapp.models.api.enums.ProductApiRequestStatus;
-import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
-public class ProductViewTransactionActivity extends AppCompatActivity {
+public class TransactionEntryViewActivity extends AppCompatActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_product_view_transaction);
+		setContentView(R.layout.activity_transaction_entry_view);
 		setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
 		ActionBar actionBar = this.getSupportActionBar();

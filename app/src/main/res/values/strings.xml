@@ -2,7 +2,7 @@
     <string name="app_name">UARKRegisterApp</string>
     <string name="title_activity_products_listing">Products</string>
     <string name="title_activity_product_view">Product Details</string>
-    <string name="title_activity_product_view_transaction">Product Details</string>
+    <string name="title_activity_transaction_entry_view">Transaction Entry Details</string>
     <string name="title_activity_create_employee">Create Employee</string>
     <string name="title_activity_main">UARK Register App</string>
     <string name="title_activity_start_transaction">Start Transaction</string>
@@ -17,9 +17,9 @@
     <string name="button_product_sales_report">TEST: ProductsListingActivity</string>
     <string name="button_cashier_sales_report">Report: Cashier</string>
     <string name="button_log_out">Log Out</string>
-    <string name="button_view_cart">View Cart</string>
-    <string name="button_add_to_cart">Add to Cart</string>
-    <string name="button_remove_all_from_cart">Remove All From Cart</string>
+    <string name="button_view_transaction">View Transaction</string>
+    <string name="button_add_to_transaction">Add to Transaction</string>
+    <string name="button_remove_all_from_transaction">Remove All From Transaction</string>
     <string name="button_change_quantity">Change Quantity</string>
     <string name="button_check_out">Check Out</string>
     <string name="text_view_landing_welcome">Hello!</string>
@@ -37,6 +37,7 @@
     <string name="text_view_transaction_entries_price">$0.00</string>
     <string name="text_view_transaction_entries_active">Active</string>
     <string name="text_view_transaction_entries_created_on">01/01/1970</string>
+    <string name="text_view_transaction_entries_desired_quantity">0</string>
     <string name="text_view_label_products_lookup_code">Lookup Code:</string>
     <string name="text_view_label_products_quantity">Quantity:</string>
     <string name="text_view_label_products_price">Price:</string>
@@ -46,6 +47,7 @@
     <string name="text_view_label_transaction_entries_quantity">Quantity:</string>
     <string name="text_view_label_transaction_entries_price">Price:</string>
     <string name="text_view_label_transaction_entries_created_on">Created On:</string>
+    <string name="text_view_label_transaction_entries_desired_quantity">Enter Desired Quantity:</string>
     <string name="text_view_search_products_by_lookup_code">Search for products by lookup code</string>
     <string name="text_view_transaction_summary">Transaction Summary</string>
     <string name="text_view_total_price"></string>

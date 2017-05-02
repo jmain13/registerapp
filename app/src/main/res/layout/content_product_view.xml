@@ -85,10 +85,11 @@
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/button_add_to_cart"
-        android:layout_width="120dp"
+        android:id="@+id/button_add_to_transaction"
+        android:layout_width="180dp"
         android:layout_height="40dp"
-        android:text="@string/button_add_to_cart"
+        android:text="@string/button_add_to_transaction"
+        android:onClick="addToTransactionButtonOnClick"
         android:layout_below="@+id/edit_text_products_desired_quantity"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />
