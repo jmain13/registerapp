@@ -1,10 +1,11 @@
 package edu.uark.uarkregisterapp;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -22,22 +23,15 @@ import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
-import edu.uark.uarkregisterapp.adapters.TransactionListAdapter;
-import edu.uark.uarkregisterapp.models.api.Transaction;
-import edu.uark.uarkregisterapp.models.api.services.TransactionService;
-import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
-import edu.uark.uarkregisterapp.models.api.enums.TransactionApiRequestStatus;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
 
 public class StartTransactionActivity extends AppCompatActivity {
 
     ListView lv;
     SearchView sv;
-
-    String[] products = {"LookUpCode1", "LookUpCode2", "LookUpCode3", "LookUpCode4", "LookUpCode5", "LookUpCode6", "LookUpCode7", "LookUpCode8", "LookUpCode9", "LookUpCode10", "LookUpCode11"};
-    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +43,13 @@ public class StartTransactionActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
 
-        lv = (ListView) findViewById(R.id.list_view_products);
+        this.products = new ArrayList<Product>();
+
+        lv = getProductsListView();
         sv = (SearchView) findViewById(R.id.searchView_search_products);
 
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, products);
-        lv.setAdapter(adapter);
+        productListAdapter = new ProductListAdapter(this, products);
+        lv.setAdapter(productListAdapter);
 
         sv.setOnQueryTextListener(new OnQueryTextListener() {
             @Override
@@ -63,74 +59,65 @@ public class StartTransactionActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
+                productListAdapter.getFilter().filter(s);
                 return false;
             }
         });
 
-        this.startTransactionAlert = new AlertDialog.Builder(this).
-                setMessage(R.string.alert_dialog_add_to_transaction).
-                create();
+        this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ProductViewActivity.class);
 
-        (new StartTransactionActivityTask(
-                this
-        )).execute();
+                intent.putExtra(
+                        getString(R.string.intent_extra_product),
+                        new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
+                );
+
+                startActivity(intent);
+            }
+        });
+
+        this.loadingProductsAlert = new AlertDialog.Builder(this).
+                setMessage(R.string.alert_dialog_products_loading).
+                create();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        this.loadingProductsAlert.show();
+        (new StartTransactionActivity.RetrieveProductsTask()).execute();
     }
 
-    public void viewTransactionButtonOnClick(View view) {
+    public void viewCartButtonOnClick(View view) {
         this.startActivity(new Intent(getApplicationContext(), TransactionSummaryActivity.class));
     }
 
-    private class StartTransactionActivityTask extends AsyncTask<Void, Void, Boolean> {
+
+    private ListView getProductsListView() {
+        return (ListView) this.findViewById(R.id.list_view_products);
+    }
+
+    private class RetrieveProductsTask extends AsyncTask<Void, Void, Void> {
         @Override
-        protected Boolean doInBackground(Void... params) {
-            Transaction transaction = (new TransactionService()).putTransaction(
-                    (new Transaction())
+        protected Void doInBackground(Void... params) {
+            products.clear();
+            products.addAll(
+                    (new ProductService()).getProducts()
             );
 
-            if (transaction.getApiRequestStatus() == TransactionApiRequestStatus.OK) {
-            }
-
-            return (transaction.getApiRequestStatus() == TransactionApiRequestStatus.OK);
+            return null;
         }
 
         @Override
-        protected void onPostExecute(Boolean successfulSave) {
-            String message;
-
-            startTransactionAlert.dismiss();
-
-            if (successfulSave) {
-                message = getString(R.string.alert_dialog_add_to_transaction_success);
-            } else {
-                message = getString(R.string.alert_dialog_add_to_transaction_failure);
-            }
-
-            new AlertDialog.Builder(this.activity).
-                    setMessage(message).
-                    setPositiveButton(
-                            R.string.button_dismiss,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            }
-                    ).
-                    create().
-                    show();
-        }
-
-        private StartTransactionActivity activity;
-
-        private StartTransactionActivityTask(StartTransactionActivity activity) {
-            this.activity = activity;
+        protected void onPostExecute(Void param) {
+            productListAdapter.notifyDataSetChanged();
+            loadingProductsAlert.dismiss();
         }
     }
 
-    private AlertDialog startTransactionAlert;
+    private List<Product> products;
+    private AlertDialog loadingProductsAlert;
+    private ProductListAdapter productListAdapter;
 }
