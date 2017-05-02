@@ -68,13 +68,13 @@ public class StartTransactionActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        /*
         this.transactionTransition = this.getIntent().getParcelableExtra(getString(R.string.intent_extra_transaction));
 
         Bundle b = this.getIntent().getExtras();
         ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
         this.transactionTransition.setTransactionEntries(entries);
-
+        */
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -84,7 +84,7 @@ public class StartTransactionActivity extends AppCompatActivity {
                         getString(R.string.intent_extra_product),
                         new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
                 );
-
+                /*
                 intent.putExtra(
                         getString(R.string.intent_extra_transaction),
                         transactionTransition
@@ -96,7 +96,7 @@ public class StartTransactionActivity extends AppCompatActivity {
                         transactionTransition.getTransactionEntries()
                 );
                 intent.putExtras(b);
-
+                */
                 startActivity(intent);
             }
         });
@@ -109,13 +109,13 @@ public class StartTransactionActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        /*
         this.transactionTransition = this.getIntent().getParcelableExtra(getString(R.string.intent_extra_transaction));
 
         Bundle b = this.getIntent().getExtras();
         ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
         this.transactionTransition.setTransactionEntries(entries);
-
+        */
         this.loadingProductsAlert.show();
         (new StartTransactionActivity.RetrieveProductsTask()).execute();
     }
@@ -123,12 +123,13 @@ public class StartTransactionActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        /*
         this.transactionTransition = this.getIntent().getParcelableExtra(getString(R.string.intent_extra_transaction));
 
         Bundle b = this.getIntent().getExtras();
         ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
         this.transactionTransition.setTransactionEntries(entries);
+        */
     }
 
     public void viewTransactionSummaryButtonOnClick(View view) {

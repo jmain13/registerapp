@@ -34,10 +34,11 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void beginTransactionButtonOnClick(View view) {
-		this.transactionTransition = new TransactionTransition();
+		//this.transactionTransition = new TransactionTransition();
 
 		Intent intent = new Intent(getApplicationContext(), StartTransactionActivity.class);
 
+		/*
 		intent.putExtra(
 				getString(R.string.intent_extra_transaction),
 				transactionTransition
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 				transactionTransition.getTransactionEntries()
 		);
 		intent.putExtras(b);
+		*/
 
 		this.startActivity(intent);
 	}

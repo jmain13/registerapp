@@ -28,7 +28,7 @@ public class TransactionEntryViewActivity extends AppCompatActivity {
 			actionBar.setDisplayHomeAsUpEnabled(true);
 		}
 
-		this.productTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
+		this.transactionEntryTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_transaction_entry));
 	}
 
 	@Override
@@ -47,9 +47,9 @@ public class TransactionEntryViewActivity extends AppCompatActivity {
 	protected void onResume() {
 		super.onResume();
 
-		this.getProductLookupCodeEditText().setText(this.productTransition.getLookupCode());
-		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getQuantity()));
-		this.getProductPriceEditText().setText("$" + String.format(Locale.getDefault(), "%.2f", this.productTransition.getPrice()));
+		this.getProductLookupCodeEditText().setText(this.transactionEntryTransition.getLookupCode());
+		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.transactionEntryTransition.getQuantity()));
+		this.getProductPriceEditText().setText("$" + String.format(Locale.getDefault(), "%.2f", this.transactionEntryTransition.getPrice()));
 	}
 
 	public void changeQuantityButtonOnClick(View view) { this.displayFunctionalityNotAvailableDialog(); }
@@ -197,5 +197,5 @@ public class TransactionEntryViewActivity extends AppCompatActivity {
 	}
 
 	private AlertDialog savingProductAlert;
-	private ProductTransition productTransition;
+	private ProductTransition transactionEntryTransition;
 }

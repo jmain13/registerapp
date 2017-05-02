@@ -36,37 +36,51 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         if (actionBar != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
+        /*
         this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction");
 
         Bundle b = this.getIntent().getExtras();
         ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
         this.transactionTransition.setTransactionEntries(entries);
+        */
 
-        ArrayList<TransactionEntry> my_entries = this.transactionTransition.getTransactionEntries();
-        for(int i = 0; i < this.transactionTransition.getTransactionEntries().size(); i++) {
-            TransactionEntry e = new TransactionEntry(my_entries.get(i));
-            System.out.println("UUID: " + e.getId().toString());
-            System.out.println("FromTransaction: " + e.getFromTransaction().toString());
-            System.out.println("lookupcode: " + e.getLookupCode());
-            System.out.println("quantity: " + e.getQuantity());
-        }
-        System.out.println("Entries: " + this.transactionTransition.getTransactionEntries().toString());
+        //ArrayList<TransactionEntry> my_entries = this.transactionTransition.getTransactionEntries();
 
-        this.transactionEntryListAdapter = new TransactionEntryListAdapter(this, this.transactionTransition.getTransactionEntries());
+        TransactionEntry entry1 = new TransactionEntry().
+                setLookupCode("lookupcode100").
+                setQuantity(7).
+                setPrice(7.77);
+        TransactionEntry entry2 = new TransactionEntry().
+                setLookupCode("lookupcode101").
+                setQuantity(12).
+                setPrice(12.00);
+        TransactionEntry entry3 = new TransactionEntry().
+                setLookupCode("lookupcode103").
+                setQuantity(40).
+                setPrice(0.40);
+        ArrayList<TransactionEntry> my_entries = new ArrayList<TransactionEntry>();
+        my_entries.add(entry1);
+        my_entries.add(entry2);
+        my_entries.add(entry3);
 
-
+        this.transactionEntryListAdapter = new TransactionEntryListAdapter(this, my_entries);
 
         this.getTransactionEntriesListView().setAdapter(this.transactionEntryListAdapter);
+
+        /*
         this.getTransactionEntriesListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                this.displayFunctionalityNotAvailableDialog();
+
+
                 Intent intent = new Intent(getApplicationContext(), TransactionEntryViewActivity.class);
 
                 intent.putExtra(
                         getString(R.string.intent_extra_transaction_entry),
                         new TransactionEntryTransition((TransactionEntry) getTransactionEntriesListView().getItemAtPosition(position))
                 );
+
 
                 intent.putExtra(
                         getString(R.string.intent_extra_transaction),
@@ -75,7 +89,7 @@ public class TransactionSummaryActivity extends AppCompatActivity {
 
                 startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override
