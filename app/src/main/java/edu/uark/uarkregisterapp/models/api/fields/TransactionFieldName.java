@@ -4,7 +4,14 @@ import edu.uark.uarkregisterapp.models.api.interfaces.FieldNameInterface;
 
 public enum TransactionFieldName implements FieldNameInterface {
 	ID("id"),
-	ENTRIES("entries");
+	CASHIER_ID("cashierId"),
+	TOTAL_QUANTITY("totalQuantity"),
+	TOTAL_PRICE("totalPrice"),
+	REFERENCE_ID("referenceId"),
+	ENTRIES("entries"),
+	API_REQUEST_STATUS("apiRequestStatus"),
+	API_REQUEST_MESSAGE("apiRequestMessage"),
+	CREATED_ON("createdOn");
 
 	private String fieldName;
 	public String getFieldName() {

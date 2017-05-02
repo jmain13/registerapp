@@ -26,9 +26,9 @@ public class TransactionEntryService extends BaseRemoteService {
 		}
 	}
 
-	public TransactionEntry getTransactionEntryByLookupCode(String transactionEntryLookupCode) {
+	public TransactionEntry getTransactionEntryByReferenceId(UUID transactionEntryReferenceId) {
 		JSONObject rawJsonObject = this.requestSingle(
-			(new PathElementInterface[] { TransactionEntryApiMethod.ENTRY, ApiLevel.ONE, TransactionEntryApiMethod.BY_LOOKUP_CODE }), transactionEntryLookupCode
+				(new PathElementInterface[]{TransactionEntryApiMethod.ENTRY, ApiLevel.ONE, TransactionEntryApiMethod.BY_REFERENCE_ID}), transactionEntryReferenceId
 		);
 
 		if (rawJsonObject != null) {
@@ -38,10 +38,11 @@ public class TransactionEntryService extends BaseRemoteService {
 		}
 	}
 
+	/*
 	public List<TransactionEntry> getTransactionEntries() {
 		List<TransactionEntry> activities;
 		JSONObject rawJsonObject = this.requestSingle(
-			(new PathElementInterface[] { TransactionEntryApiMethod.ENTRY, ApiLevel.ONE, TransactionEntryApiMethod.ENTRIES })
+				(new PathElementInterface[] { TransactionEntryApiMethod.ENTRY, ApiLevel.ONE, TransactionEntryApiMethod.ENTRIES })
 		);
 
 		if (rawJsonObject != null) {
@@ -51,7 +52,7 @@ public class TransactionEntryService extends BaseRemoteService {
 		}
 
 		return activities;
-	}
+	}*/
 
 	public TransactionEntry putTransactionEntry(TransactionEntry transactionEntry) {
 		JSONObject rawJsonObject = this.putSingle(

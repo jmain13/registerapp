@@ -17,10 +17,11 @@ import org.apache.commons.lang3.StringUtils;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-import edu.uark.uarkregisterapp.models.api.Product;
-import edu.uark.uarkregisterapp.models.api.enums.ProductApiRequestStatus;
-import edu.uark.uarkregisterapp.models.api.services.ProductService;
+import edu.uark.uarkregisterapp.models.api.TransactionEntry;
+import edu.uark.uarkregisterapp.models.api.enums.TransactionEntryApiRequestStatus;
+import edu.uark.uarkregisterapp.models.api.services.TransactionEntryService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.models.transition.TransactionEntryTransition;
 
 public class ProductViewActivity extends AppCompatActivity {
 	@Override
@@ -59,9 +60,25 @@ public class ProductViewActivity extends AppCompatActivity {
 	}
 
 	public void addToTransactionButtonOnClick(View view)  {
-		this.displayFunctionalityNotAvailableDialog();
-	}
+		//this.displayFunctionalityNotAvailableDialog();
 
+		if (!this.validateInput()) {
+			return;
+		}
+
+		this.addToTransactionAlert = new AlertDialog.Builder(this).
+				setMessage(R.string.alert_dialog_add_to_transaction).
+				create();
+
+		(new AddToTransactionActivityTask(
+				this,
+				this.getProductLookupCodeEditText().getText().toString(),
+				Integer.parseInt(this.getProductDesiredQuantityEditText().getText().toString()),
+				Double.parseDouble(this.getProductPriceEditText().getText().toString())
+		)).execute();
+
+	}
+	/*
 	private void displayFunctionalityNotAvailableDialog() {
 		new AlertDialog.Builder(this).
 				setMessage(R.string.alert_dialog_functionality_not_available).
@@ -75,23 +92,6 @@ public class ProductViewActivity extends AppCompatActivity {
 				).
 				create().
 				show();
-	}
-
-	/*
-	public void saveButtonOnClick(View view) {
-		if (!this.validateInput()) {
-			return;
-		}
-
-		this.savingProductAlert = new AlertDialog.Builder(this).
-			setMessage(R.string.alert_dialog_product_save).
-			create();
-
-		(new SaveActivityTask(
-			this,
-			this.getProductLookupCodeEditText().getText().toString(),
-			Integer.parseInt(this.getProductQuantityEditText().getText().toString())
-		)).execute();
 	}*/
 
 	private EditText getProductLookupCodeEditText() {
@@ -105,35 +105,45 @@ public class ProductViewActivity extends AppCompatActivity {
 	private EditText getProductPriceEditText() {
 		return (EditText) this.findViewById(R.id.edit_text_product_price);
 	}
-	/*
-	private class SaveActivityTask extends AsyncTask<Void, Void, Boolean> {
+
+	private EditText getProductDesiredQuantityEditText() {
+		return (EditText) this.findViewById(R.id.edit_text_product_desired_quantity);
+	}
+
+
+	private class AddToTransactionActivityTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			Product product = (new ProductService()).putProduct(
-				(new Product()).
-					setId(productTransition.getId()).
+			TransactionEntry transactionEntry = (new TransactionEntryService()).putTransactionEntry(
+				(new TransactionEntry()).
+					setId(transactionEntryTransition.getId()).
+					setFromTransaction(transactionEntryTransition.getFromTransaction()).
 					setLookupCode(this.lookupCode).
-					setQuantity(this.quantity)
+					setQuantity(this.desiredQuantity).
+					setPrice(this.price)
 			);
 
-			if (product.getApiRequestStatus() == ProductApiRequestStatus.OK) {
-				productTransition.setQuantity(this.quantity);
-				productTransition.setLookupCode(this.lookupCode);
+			// TODO: Check ID, FromTransaction!
+
+			if (transactionEntry.getApiRequestStatus() == TransactionEntryApiRequestStatus.OK) {
+				transactionEntryTransition.setLookupCode(this.lookupCode);
+				transactionEntryTransition.setQuantity(this.desiredQuantity);
+				transactionEntryTransition.setPrice(this.price);
 			}
 
-			return (product.getApiRequestStatus() == ProductApiRequestStatus.OK);
+			return (transactionEntry.getApiRequestStatus() == TransactionEntryApiRequestStatus.OK);
 		}
 
 		@Override
 		protected void onPostExecute(Boolean successfulSave) {
 			String message;
 
-			savingProductAlert.dismiss();
+			addToTransactionAlert.dismiss();
 
 			if (successfulSave) {
-				message = getString(R.string.alert_dialog_product_save_success);
+				message = getString(R.string.alert_dialog_add_to_transaction_success);
 			} else {
-				message = getString(R.string.alert_dialog_product_save_failure);
+				message = getString(R.string.alert_dialog_add_to_transaction_failure);
 			}
 
 			new AlertDialog.Builder(this.activity).
@@ -150,16 +160,18 @@ public class ProductViewActivity extends AppCompatActivity {
 				show();
 		}
 
-		private int quantity;
-		private String lookupCode;
 		private ProductViewActivity activity;
+		private String lookupCode;
+		private int desiredQuantity;
+		private double price;
 
-		private SaveActivityTask(ProductViewActivity activity, String lookupCode, int quantity) {
-			this.quantity = quantity;
+		private AddToTransactionActivityTask(ProductViewActivity activity, String lookupCode, int desiredQuantity, double price) {
 			this.activity = activity;
 			this.lookupCode = lookupCode;
+			this.desiredQuantity = desiredQuantity;
+			this.price = price;
 		}
-	}*/
+	}
 
 	private boolean validateInput() {
 		boolean inputIsValid = true;
@@ -185,6 +197,16 @@ public class ProductViewActivity extends AppCompatActivity {
 			inputIsValid = false;
 		}
 
+		try {
+			if (Double.parseDouble(this.getProductDesiredQuantityEditText().getText().toString()) < 0) {
+				validationMessage = this.getString(R.string.validation_product_desired_quantity);
+				inputIsValid = false;
+			}
+		} catch (NumberFormatException nfe) {
+			validationMessage = this.getString(R.string.validation_product_desired_quantity);
+			inputIsValid = false;
+		}
+
 		if (!inputIsValid) {
 			new AlertDialog.Builder(this).
 				setMessage(validationMessage).
@@ -203,6 +225,7 @@ public class ProductViewActivity extends AppCompatActivity {
 		return inputIsValid;
 	}
 
-	private AlertDialog savingProductAlert;
+	private AlertDialog addToTransactionAlert;
 	private ProductTransition productTransition;
+	private TransactionEntryTransition transactionEntryTransition;
 }

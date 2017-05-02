@@ -19,6 +19,7 @@ import java.text.DecimalFormat;
 
 import edu.uark.uarkregisterapp.adapters.TransactionListAdapter;
 import edu.uark.uarkregisterapp.models.api.TransactionEntry;
+import edu.uark.uarkregisterapp.models.api.services.TransactionService;
 import edu.uark.uarkregisterapp.models.api.services.TransactionEntryService;
 import edu.uark.uarkregisterapp.models.transition.TransactionEntryTransition;
 
@@ -99,7 +100,7 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         protected Void doInBackground(Void... params) {
             entries.clear();
             entries.addAll(
-                    (new TransactionEntryService()).getTransactionEntries()
+                    (new TransactionService()).getTransactionEntries()
             );
 
             return null;

@@ -8,7 +8,7 @@ import edu.uark.uarkregisterapp.models.api.interfaces.PathElementInterface;
 public enum TransactionEntryApiMethod implements PathElementInterface {
 	NONE(""),
 	ENTRY("entry"),
-	BY_LOOKUP_CODE("byLookupCode"),
+	BY_REFERENCE_ID("byReferenceId"),
 	ENTRIES("entries");
 
 	@Override

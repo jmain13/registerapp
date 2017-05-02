@@ -1,4 +1,6 @@
 package edu.uark.uarkregisterapp;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.support.v7.app.AlertDialog;
@@ -20,10 +22,14 @@ import edu.uark.uarkregisterapp.models.api.Product;
 import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
+import edu.uark.uarkregisterapp.adapters.TransactionListAdapter;
+import edu.uark.uarkregisterapp.models.api.Transaction;
+import edu.uark.uarkregisterapp.models.api.services.TransactionService;
+import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
+import edu.uark.uarkregisterapp.models.api.enums.TransactionApiRequestStatus;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
 
 public class StartTransactionActivity extends AppCompatActivity {
 
@@ -61,6 +67,14 @@ public class StartTransactionActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        this.startTransactionAlert = new AlertDialog.Builder(this).
+                setMessage(R.string.alert_dialog_add_to_transaction).
+                create();
+
+        (new StartTransactionActivityTask(
+                this
+        )).execute();
     }
 
     @Override
@@ -71,4 +85,52 @@ public class StartTransactionActivity extends AppCompatActivity {
     public void viewTransactionButtonOnClick(View view) {
         this.startActivity(new Intent(getApplicationContext(), TransactionSummaryActivity.class));
     }
+
+    private class StartTransactionActivityTask extends AsyncTask<Void, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            Transaction transaction = (new TransactionService()).putTransaction(
+                    (new Transaction())
+            );
+
+            if (transaction.getApiRequestStatus() == TransactionApiRequestStatus.OK) {
+            }
+
+            return (transaction.getApiRequestStatus() == TransactionApiRequestStatus.OK);
+        }
+
+        @Override
+        protected void onPostExecute(Boolean successfulSave) {
+            String message;
+
+            startTransactionAlert.dismiss();
+
+            if (successfulSave) {
+                message = getString(R.string.alert_dialog_add_to_transaction_success);
+            } else {
+                message = getString(R.string.alert_dialog_add_to_transaction_failure);
+            }
+
+            new AlertDialog.Builder(this.activity).
+                    setMessage(message).
+                    setPositiveButton(
+                            R.string.button_dismiss,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.dismiss();
+                                }
+                            }
+                    ).
+                    create().
+                    show();
+        }
+
+        private StartTransactionActivity activity;
+
+        private StartTransactionActivityTask(StartTransactionActivity activity) {
+            this.activity = activity;
+        }
+    }
+
+    private AlertDialog startTransactionAlert;
 }
