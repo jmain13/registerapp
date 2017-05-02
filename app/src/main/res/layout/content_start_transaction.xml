@@ -42,20 +42,17 @@
         android:layout_height="300dp"
         android:layout_marginTop="12dp"
         android:layout_below="@+id/searchView_search_products"
-        android:layout_above="@+id/button_view_cart"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <Button
-        android:id="@+id/button_view_cart"
-        android:layout_width="100dp"
+        android:id="@+id/button_view_transaction"
+        android:layout_width="160dp"
         android:layout_height="40dp"
+        android:onClick="viewTransactionButtonOnClick"
+        android:layout_marginTop="12dp"
+        android:text="@string/button_view_transaction"
+        android:layout_below="@+id/list_view_products"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:onClick="viewCartButtonOnClick"
-        android:text="@string/button_view_cart" />
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
