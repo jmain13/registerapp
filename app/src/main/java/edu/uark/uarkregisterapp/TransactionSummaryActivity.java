@@ -17,10 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.text.DecimalFormat;
 
-import edu.uark.uarkregisterapp.adapters.ProductListAdapter;
-import edu.uark.uarkregisterapp.models.api.Product;
-import edu.uark.uarkregisterapp.models.api.services.ProductService;
-import edu.uark.uarkregisterapp.models.transition.ProductTransition;
+import edu.uark.uarkregisterapp.adapters.TransactionListAdapter;
+import edu.uark.uarkregisterapp.models.api.TransactionEntry;
+import edu.uark.uarkregisterapp.models.api.services.TransactionEntryService;
+import edu.uark.uarkregisterapp.models.transition.TransactionEntryTransition;
 
 public class TransactionSummaryActivity extends AppCompatActivity {
 
@@ -35,19 +35,18 @@ public class TransactionSummaryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        this.products = new ArrayList<>();
-        this.transactionProducts = new ArrayList<>();
-        this.productListAdapter = new ProductListAdapter(this, this.transactionProducts);
+        this.entries = new ArrayList<>();
+        this.transactionListAdapter = new TransactionListAdapter(this, this.entries);
 
-        this.getProductsListView().setAdapter(this.productListAdapter);
-        this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        this.getTransactionEntriesListView().setAdapter(this.transactionListAdapter);
+        this.getTransactionEntriesListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), ProductViewTransactionActivity.class);
 
                 intent.putExtra(
                         getString(R.string.intent_extra_product),
-                        new ProductTransition((Product) getProductsListView().getItemAtPosition(position))
+                        new TransactionEntryTransition((TransactionEntry) getTransactionEntriesListView().getItemAtPosition(position))
                 );
 
                 startActivity(intent);
@@ -88,32 +87,27 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         super.onResume();
 
         this.loadingTransactionSummaryAlert.show();
-        (new RetrieveTransactionProductsTask()).execute();
+        (new RetrieveTransactionEntriesTask()).execute();
     }
 
-    private ListView getProductsListView() {
-        return (ListView) this.findViewById(R.id.list_view_products);
+    private ListView getTransactionEntriesListView() {
+        return (ListView) this.findViewById(R.id.list_view_transaction_entries);
     }
 
-    private class RetrieveTransactionProductsTask extends AsyncTask<Void, Void, Void> {
+    private class RetrieveTransactionEntriesTask extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... params) {
-            products.clear();
-            products.addAll(
-                    (new ProductService()).getProducts()
+            entries.clear();
+            entries.addAll(
+                    (new TransactionEntryService()).getTransactionEntries()
             );
-            transactionProducts.clear();
-            for (int i=0; i < products.size(); i++) {
-                Product p = products.get(i);
-                if (p.getActive()) { transactionProducts.add(p); }
-            }
 
             return null;
         }
 
         @Override
         protected void onPostExecute(Void param) {
-            productListAdapter.notifyDataSetChanged();
+            transactionListAdapter.notifyDataSetChanged();
             getTotalPrice();
             displayTotalPrice();
             loadingTransactionSummaryAlert.dismiss();
@@ -124,9 +118,9 @@ public class TransactionSummaryActivity extends AppCompatActivity {
 
     private void getTotalPrice() {
         totalPrice = 0.00;
-        for (int i=0; i < transactionProducts.size(); i++) {
-            Product p = transactionProducts.get(i);
-            totalPrice = totalPrice + p.getPrice();
+        for (int i=0; i < entries.size(); i++) {
+            TransactionEntry e = entries.get(i);
+            totalPrice = totalPrice + e.getPrice();
         }
     }
 
@@ -141,9 +135,8 @@ public class TransactionSummaryActivity extends AppCompatActivity {
         return (TextView)this.findViewById(R.id.textView_total_price);
     }
 
-    private List<Product> products;
-    private List<Product> transactionProducts;
+    private List<TransactionEntry> entries;
     private AlertDialog loadingTransactionSummaryAlert;
-    private ProductListAdapter productListAdapter;
+    private TransactionListAdapter transactionListAdapter;
     private double totalPrice;
 }

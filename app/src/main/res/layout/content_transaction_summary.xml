@@ -25,7 +25,7 @@
         android:layout_centerHorizontal="true" />
 
     <ListView
-        android:id="@+id/list_view_products"
+        android:id="@+id/list_view_transaction_entries"
         android:layout_width="500dp"
         android:layout_height="300dp"
         android:layout_marginTop="12dp"
@@ -54,6 +54,6 @@
         android:text="@string/text_view_total_price"
         android:textSize="20sp"
         android:layout_marginTop="18dp"
-        android:layout_below="@+id/list_view_products"
+        android:layout_below="@+id/list_view_transaction_entries"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
