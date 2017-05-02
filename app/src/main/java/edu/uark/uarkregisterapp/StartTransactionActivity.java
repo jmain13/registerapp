@@ -25,10 +25,12 @@ import edu.uark.uarkregisterapp.models.api.services.ProductService;
 import edu.uark.uarkregisterapp.models.transition.ProductTransition;
 
 import edu.uark.uarkregisterapp.models.api.Transaction;
+import edu.uark.uarkregisterapp.models.api.TransactionEntry;
 import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 
 public class StartTransactionActivity extends AppCompatActivity {
@@ -67,7 +69,11 @@ public class StartTransactionActivity extends AppCompatActivity {
             }
         });
 
-        this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction");
+        this.transactionTransition = this.getIntent().getParcelableExtra(getString(R.string.intent_extra_transaction));
+
+        Bundle b = this.getIntent().getExtras();
+        ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
+        this.transactionTransition.setTransactionEntries(entries);
 
         this.getProductsListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -84,6 +90,13 @@ public class StartTransactionActivity extends AppCompatActivity {
                         transactionTransition
                 );
 
+                Bundle b = new Bundle();
+                b.putParcelableArrayList(
+                        getString(R.string.intent_extra_transaction_entries),
+                        transactionTransition.getTransactionEntries()
+                );
+                intent.putExtras(b);
+
                 startActivity(intent);
             }
         });
@@ -96,8 +109,26 @@ public class StartTransactionActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        this.transactionTransition = this.getIntent().getParcelableExtra(getString(R.string.intent_extra_transaction));
+
+        Bundle b = this.getIntent().getExtras();
+        ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
+        this.transactionTransition.setTransactionEntries(entries);
+
         this.loadingProductsAlert.show();
         (new StartTransactionActivity.RetrieveProductsTask()).execute();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        this.transactionTransition = this.getIntent().getParcelableExtra(getString(R.string.intent_extra_transaction));
+
+        Bundle b = this.getIntent().getExtras();
+        ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
+        this.transactionTransition.setTransactionEntries(entries);
     }
 
     public void viewTransactionSummaryButtonOnClick(View view) {

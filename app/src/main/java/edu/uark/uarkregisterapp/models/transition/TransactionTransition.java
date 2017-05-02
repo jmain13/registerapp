@@ -91,7 +91,6 @@ public class TransactionTransition implements Parcelable {
 		destination.writeDouble(this.totalPrice);
 		destination.writeByteArray((new UUIDToByteConverterCommand()).setValueToConvert(this.referenceId).execute());
 		destination.writeLong(this.createdOn.getTime());
-		destination.writeParcelable(this.entries, flags);
 	}
 
 	@Override
@@ -99,7 +98,7 @@ public class TransactionTransition implements Parcelable {
 		return 0;
 	}
 
-	public static final Creator<TransactionTransition> CREATOR = new Creator<TransactionTransition>() {
+	public static final Parcelable.Creator<TransactionTransition> CREATOR = new Parcelable.Creator<TransactionTransition>() {
 		public TransactionTransition createFromParcel(Parcel transactionTransitionParcel) {
 			return new TransactionTransition(transactionTransitionParcel);
 		}
@@ -135,8 +134,6 @@ public class TransactionTransition implements Parcelable {
 		this.totalQuantity = transactionTransitionParcel.readInt();
 		this.totalPrice = transactionTransitionParcel.readDouble();
 		this.referenceId = (new ByteToUUIDConverterCommand()).setValueToConvert(transactionTransitionParcel.createByteArray()).execute();
-		this.entries = (ArrayList<TransactionEntry>) transactionTransitionParcel.readParcelable(getClass().getClassLoader());
-		String active_parcel = transactionTransitionParcel.readString();
 
 		this.createdOn = new Date();
 		this.createdOn.setTime(transactionTransitionParcel.readLong());

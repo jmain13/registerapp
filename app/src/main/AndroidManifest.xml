@@ -26,11 +26,6 @@
                 android:value="edu.uark.uarkregisterapp.LandingActivity"/>
         </activity>
         <activity
-            android:name=".ProductViewActivity"
-            android:label="@string/title_activity_product_view"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
             android:name=".CreateEmployeeActivity"
             android:label="@string/title_activity_create_employee"
             android:theme="@style/AppTheme.NoActionBar">
@@ -44,6 +39,14 @@
             android:name=".StartTransactionActivity"
             android:label="@string/title_activity_start_transaction"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".ProductViewActivity"
+            android:label="@string/title_activity_product_view"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.uark.uarkregisterapp.StartTransactionActivity"/>
         </activity>
         <activity
             android:name=".TransactionSummaryActivity"

@@ -37,7 +37,11 @@ public class TransactionSummaryActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        this.transactionTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_transaction));
+        this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction");
+
+        Bundle b = this.getIntent().getExtras();
+        ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
+        this.transactionTransition.setTransactionEntries(entries);
 
         ArrayList<TransactionEntry> my_entries = this.transactionTransition.getTransactionEntries();
         for(int i = 0; i < this.transactionTransition.getTransactionEntries().size(); i++) {

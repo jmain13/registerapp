@@ -41,6 +41,10 @@ public class ProductViewActivity extends AppCompatActivity {
 
 		this.productTransition = this.getIntent().getParcelableExtra(this.getString(R.string.intent_extra_product));
 		this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction");
+
+		Bundle b = this.getIntent().getExtras();
+		ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
+		this.transactionTransition.setTransactionEntries(entries);
 	}
 
 	@Override
@@ -62,6 +66,12 @@ public class ProductViewActivity extends AppCompatActivity {
 		this.getProductLookupCodeEditText().setText(this.productTransition.getLookupCode());
 		this.getProductQuantityEditText().setText(String.format(Locale.getDefault(), "%d", this.productTransition.getQuantity()));
 		this.getProductPriceEditText().setText(String.format(Locale.getDefault(), "%.2f", this.productTransition.getPrice()));
+
+		this.transactionTransition = this.getIntent().getParcelableExtra("intent_extra_transaction");
+
+		Bundle b = this.getIntent().getExtras();
+		ArrayList<TransactionEntry> entries = b.getParcelableArrayList(getString(R.string.intent_extra_transaction_entries));
+		this.transactionTransition.setTransactionEntries(entries);
 	}
 
 	public void addToTransactionButtonOnClick(View view) {
@@ -86,6 +96,15 @@ public class ProductViewActivity extends AppCompatActivity {
 				getString(R.string.intent_extra_transaction),
 				transactionTransition
 		);
+
+		ArrayList<TransactionEntry> entries = new ArrayList<TransactionEntry>();
+		Bundle b = new Bundle();
+		b.putParcelableArrayList(
+				getString(R.string.intent_extra_transaction_entries),
+				transactionTransition.getTransactionEntries()
+		);
+		intent.putExtras(b);
+
 
 		startActivity(intent);
 	}

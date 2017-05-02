@@ -82,4 +82,5 @@
     <string name="intent_extra_product">intent_extra_product</string>
     <string name="intent_extra_transaction">intent_extra_transaction</string>
     <string name="intent_extra_transaction_entry">intent_extra_transaction_entry</string>
+    <string name="intent_extra_transaction_entries">intent_extra_transaction_entries</string>
 </resources>

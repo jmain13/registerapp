@@ -9,9 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import edu.uark.uarkregisterapp.models.transition.EmployeeTransition;
 import edu.uark.uarkregisterapp.models.transition.TransactionTransition;
 import edu.uark.uarkregisterapp.models.api.Transaction;
+import edu.uark.uarkregisterapp.models.api.TransactionEntry;
 
 public class MainActivity extends AppCompatActivity {
 	@Override
@@ -31,12 +34,22 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void beginTransactionButtonOnClick(View view) {
+		this.transactionTransition = new TransactionTransition();
+
 		Intent intent = new Intent(getApplicationContext(), StartTransactionActivity.class);
 
 		intent.putExtra(
 				getString(R.string.intent_extra_transaction),
-				new TransactionTransition(new Transaction())
+				transactionTransition
 		);
+
+		ArrayList<TransactionEntry> entries = new ArrayList<TransactionEntry>();
+		Bundle b = new Bundle();
+		b.putParcelableArrayList(
+				getString(R.string.intent_extra_transaction_entries),
+				transactionTransition.getTransactionEntries()
+		);
+		intent.putExtras(b);
 
 		this.startActivity(intent);
 	}
@@ -77,4 +90,5 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private EmployeeTransition employeeTransition;
+	private TransactionTransition transactionTransition;
 }
